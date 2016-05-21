@@ -9,16 +9,17 @@ namespace gitdoko
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main( string[] args )
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
+            var host = new WebHostBuilder();
+
+            host.UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .Build();
+                ;
 
-            host.Run();
+            host.Build().Run();
         }
     }
 }
