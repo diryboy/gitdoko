@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace gitdoko
@@ -17,8 +18,6 @@ namespace gitdoko
             var host = new WebHostBuilder();
 
             host.UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseWebRoot("Assets")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 ;
@@ -36,14 +35,9 @@ namespace gitdoko
         // Use this method to configure the HTTP request pipeline.
         public void Configure( IApplicationBuilder app )
         {
-            app.UseStaticFiles()
-               .UseMvc()
+            app.UseFileServer()
+               .UseMvc(routes => routes.MapRoute("default", "{controller=Home}/{action=Index}"))
                ;
-
-            app.Run(async ( context ) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
         }
     }
 }
