@@ -36,7 +36,7 @@ namespace gitdoko
         public void Configure( IApplicationBuilder app )
         {
             app.UseFileServer()
-               .UseMvc(routes => routes.MapRoute("default", "{controller=Home}/{action=Index}"))
+               .UseMvc()
                ;
         }
     }
