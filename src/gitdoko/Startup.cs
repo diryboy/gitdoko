@@ -19,6 +19,7 @@ namespace gitdoko
 
             host.UseKestrel()
                 .UseIISIntegration()
+                .UseContentRoot(Directory.GetCurrentDirectory()) //???
                 .UseStartup<Startup>()
                 ;
 
@@ -33,8 +34,19 @@ namespace gitdoko
         }
 
         // Use this method to configure the HTTP request pipeline.
-        public void Configure( IApplicationBuilder app )
+        public void Configure( IApplicationBuilder app, IHostingEnvironment env )
         {
+            if ( env.IsDevelopment() )
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                LoginPath = "/SignIn",
+                ReturnUrlParameter = "ReturnUrl",
+            });
+
             app.UseFileServer()
                .UseMvc(ConfigureRoutes)
                ;
