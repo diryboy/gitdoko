@@ -10,7 +10,7 @@ namespace gitdoko.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public IActionResult Index()//?problem?
+        public IActionResult Index()
         {
             return Content("Your profile!");
         }
@@ -33,7 +33,7 @@ namespace gitdoko.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("[action]")]
-        public IActionResult SignIn( string name, string password )
+        public IActionResult SignIn( string name, string password, string returnUrl )
         {
             return Content($"{name}, you are now +1!");
         }

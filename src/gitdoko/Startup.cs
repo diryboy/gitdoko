@@ -43,8 +43,9 @@ namespace gitdoko
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
                 LoginPath = "/SignIn",
-                ReturnUrlParameter = "ReturnUrl",
             });
 
             app.UseFileServer()
