@@ -10,7 +10,14 @@ namespace gitdoko.Controllers
     {
         public IActionResult Index()
         {
-            return Content("It works!");
+            if ( User.Identity.IsAuthenticated )
+            {
+                return Content($"Hi, {User.Identity.Name}! You proved your id by using {User.Identity.AuthenticationType}.");
+            }
+            else
+            {
+                return Content("It works!");
+            }
         }
     }
 }

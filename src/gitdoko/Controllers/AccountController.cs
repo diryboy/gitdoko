@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace gitdoko.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Your profile!");
+            return Content($"Welcome to your account, {User.Identity.Name}!");
         }
 
         [AllowAnonymous]
@@ -33,9 +34,18 @@ namespace gitdoko.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("[action]")]
-        public IActionResult SignIn( string name, string password, string returnUrl )
+        public async Task<IActionResult> SignIn( string name, string password )
         {
-            return Content($"{name}, you are now +1!");
+            var issuer = nameof(gitdoko);
+            var authenticationType = "Hardcode";
+            var principal = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, name, ClaimValueTypes.String, issuer),
+            }, authenticationType));
+
+            await HttpContext.Authentication.SignInAsync("Cookies", principal);
+
+            return View();
         }
     }
 }
