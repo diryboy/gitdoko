@@ -38,7 +38,7 @@ namespace gitdoko.Controllers
 
             if ( !result.Succeeded )
             {
-                return Content(result.Errors.Aggregate("", ( s, e ) => $"{s} <|> {e}"));
+                return Content(result.Errors.Aggregate("", ( s, e ) => $"{s} <|> {e.Description}"));
             }
 
             return View(); // need redirect regardless of return url
