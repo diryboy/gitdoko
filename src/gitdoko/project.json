@@ -9,8 +9,8 @@
         "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
         "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
         "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
-        "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-rc2-final",
-        "Microsoft.AspNetCore.Authorization": "1.0.0-rc2-final"
+        "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
+        "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0-rc2-final",
     },
 
     "tools": {
@@ -22,9 +22,10 @@
 
     "frameworks": {
         "netstandard1.5": {
-            "dependencies": {
-                "Newtonsoft.Json":  "8.0.4-beta1"
-            }
+            "imports": [
+                "dnxcore50",
+                "portable-net45+win8"
+            ]
         }
     },
 

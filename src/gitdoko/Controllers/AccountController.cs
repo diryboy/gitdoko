@@ -3,28 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using gitdoko.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
             return Content($"Welcome to your account, {User.Identity.Name}!");
         }
 
-        [AllowAnonymous]
+        [HttpGet]
         [Route("[action]")]
         public IActionResult SignUp()
         {
-            return Content("Want in? Do it!");
+            return View();
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> SignUp
+        (
+            [FromServices] UserManager<User> userManager,
+            string name,
+            string password
+        )
+        {
+            var result = await userManager.CreateAsync(new User { UserName = name }, password);
+
+            if ( !result.Succeeded )
+            {
+                return Content(result.Errors.Aggregate("", ( s, e ) => $"{s} <|> {e}"));
+            }
+
+            return View(); // need redirect regardless of return url
         }
 
         [HttpGet]
-        [AllowAnonymous]
         [Route("[action]")]
         public IActionResult SignIn()
         {
@@ -32,20 +52,22 @@ namespace gitdoko.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [Route("[action]")]
-        public async Task<IActionResult> SignIn( string name, string password )
+        public async Task<IActionResult> SignIn
+        (
+             [FromServices] SignInManager<User> signInManager,
+             string name,
+             string password
+        )
         {
-            var issuer = nameof(gitdoko);
-            var authenticationType = "Hardcode";
-            var principal = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            var result = await signInManager.PasswordSignInAsync(name, password, isPersistent: false, lockoutOnFailure: false);
+
+            if ( !result.Succeeded )
             {
-                new Claim(ClaimTypes.Name, name, ClaimValueTypes.String, issuer),
-            }, authenticationType));
+                return Content("Failed to sign in.");
+            }
 
-            await HttpContext.Authentication.SignInAsync("Cookies", principal);
-
-            return View();
+            return View(); // need redirect regardless of return url
         }
     }
 }

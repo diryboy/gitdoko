@@ -17,7 +17,7 @@ namespace gitdoko.Models
         public string Description { get; set; }
         public string UserRights { get; set; }
         public string DefaultBranch { get; set; }
-        public List<string> Branches { get; set; }
+        //public ICollection<string> Branches { get; set; }
         public int NextTopicId { get; set; }
     }
 }
