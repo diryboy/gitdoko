@@ -58,10 +58,11 @@ namespace gitdoko
         }
 
         // Use this method to configure the HTTP request pipeline.
-        public void Configure( IApplicationBuilder app )
+        public void Configure( IApplicationBuilder app, DefaultDbContext dbContext )
         {
             if ( HostingEnvironment.IsDevelopment() )
             {
+                dbContext.Database.EnsureCreated();
                 app.UseDeveloperExceptionPage();
             }
 
