@@ -1,13 +1,28 @@
 ﻿@model SignUpViewModel
 
 <h1>Wanna +1? Do it!</h1>
-<form method="post">
-    <label>
+<form method="post" asp-antiforgery="true">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="UserName"></label>
         <input asp-for="UserName" />
-    </label>
-    <label>
-        Password:
+    </div>
+    <div>
+        <label asp-for="Password"></label>
         <input asp-for="Password" />
-    </label>
-    <input type="submit" value="Submit" />
+    </div>
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" />
+    </div>
+    <div>
+        <input asp-for="RememberMe" />
+        <label asp-for="RememberMe"></label>
+    </div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+    <div>
+        <a asp-action="SignIn">Already +1?</a>
+    </div>
 </form>
