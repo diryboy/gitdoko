@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using gitdoko.Models;
+using gitdoko.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +12,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace gitdoko.Controllers
 {
     [Route("[action]")]
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
+        private readonly UserManager<User> UserManager;
+        private readonly SignInManager<User> SignInManager;
+
+        public AccountController( UserManager<User> um, SignInManager<User> sm )
+        {
+            UserManager = um;
+            SignInManager = sm;
+        }
+
         [Authorize]
         public IActionResult Account()
         {
@@ -26,21 +37,16 @@ namespace gitdoko.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp
-        (
-            [FromServices] UserManager<User> userManager,
-            string name,
-            string password
-        )
+        public async Task<IActionResult> SignUp( SignUpViewModel form )
         {
-            var result = await userManager.CreateAsync(new User { UserName = name }, password);
+            var userCreation = await UserManager.CreateAsync(new User { UserName = form.UserName }, form.Password);
 
-            if ( !result.Succeeded )
+            if ( userCreation.Succeeded )
             {
-                return Content(result.Errors.Aggregate("", ( s, e ) => $"{s} <|> {e.Description}"));
+                return await SignIn(form);
             }
 
-            return View(); // need redirect regardless of return url
+            return View(userCreation.Errors); // need redirect regardless of return url
         }
 
         [HttpGet]
@@ -50,18 +56,13 @@ namespace gitdoko.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn
-        (
-             [FromServices] SignInManager<User> signInManager,
-             string name,
-             string password
-        )
+        public async Task<IActionResult> SignIn( SignInViewModel form )
         {
-            var result = await signInManager.PasswordSignInAsync(name, password, isPersistent: false, lockoutOnFailure: false);
+            var signIn = await SignInManager.PasswordSignInAsync(form.UserName, form.Password, form.RememberMe, lockoutOnFailure: false);
 
-            if ( !result.Succeeded )
+            if ( signIn.Succeeded )
             {
-                return Content("Failed to sign in.");
+                return View();
             }
 
             return View(); // need redirect regardless of return url

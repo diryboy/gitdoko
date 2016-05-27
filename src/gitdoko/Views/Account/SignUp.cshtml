@@ -1,12 +1,13 @@
-﻿<h1>Wanna +1? Do it!</h1>
+﻿@model SignUpViewModel
+
+<h1>Wanna +1? Do it!</h1>
 <form method="post">
     <label>
-        User name:
-        <input name="name" />
+        <input asp-for="UserName" />
     </label>
     <label>
         Password:
-        <input name="password" />
+        <input asp-for="Password" />
     </label>
     <input type="submit" value="Submit" />
 </form>
