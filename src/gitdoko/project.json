@@ -12,15 +12,24 @@
         "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
         "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0-rc2-final",
         "Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final",
+        "Microsoft.AspNetCore.Razor.Tools": {
+            "version": "1.0.0-preview1-final",
+            "type": "build"
+        }
     },
 
     "tools": {
+        "Microsoft.AspNetCore.Razor.Tools": {
+            "version": "1.0.0-preview1-final",
+            "imports": "portable-net45+win8+dnxcore50"
+        }
     },
 
     "frameworks": {
         "netstandard1.5": {
             "imports": [
                 "dnxcore50",
+                "netcoreapp1.0",
                 "portable-net45+win8"
             ]
         }
