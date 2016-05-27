@@ -76,7 +76,6 @@ namespace gitdoko
         private static void ConfigureRoutes( IRouteBuilder routes )
         {
             routes.MapRoute("default", "{controller}/{action=Index}/{name?}")
-                  .MapRoute("special", "{action=Index}/{name?}", new { controller = "Home" })
                   ;
         }
     }

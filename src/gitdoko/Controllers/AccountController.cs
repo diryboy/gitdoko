@@ -10,23 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
+    [Route("[action]")]
     public class AccountController : Controller
     {
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Account()
         {
             return Content($"Welcome to your account, {User.Identity.Name}!");
         }
 
         [HttpGet]
-        [Route("[action]")]
         public IActionResult SignUp()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("[action]")]
         public async Task<IActionResult> SignUp
         (
             [FromServices] UserManager<User> userManager,
@@ -45,14 +44,12 @@ namespace gitdoko.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
         public IActionResult SignIn()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("[action]")]
         public async Task<IActionResult> SignIn
         (
              [FromServices] SignInManager<User> signInManager,

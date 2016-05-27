@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
+    [Route("[action]")]
     public class HomeController : Controller
     {
+        [Route("/")]
         public IActionResult Index()
         {
             if ( User.Identity.IsAuthenticated )
