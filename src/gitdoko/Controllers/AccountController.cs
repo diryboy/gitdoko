@@ -39,21 +39,20 @@ namespace gitdoko.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp( SignUpViewModel form )
+        public async Task<IActionResult> SignUp( SignUpViewModel form, string returnUrl )
         {
-            if ( !ModelState.IsValid )
+            if ( ModelState.IsValid )
             {
-                return View();
+                var userCreation = await UserManager.CreateAsync(new User { UserName = form.UserName }, form.Password);
+
+                if ( userCreation.Succeeded )
+                {
+                    return await SignIn(form, returnUrl);
+                }
+
+                ModelState.AddErrors(userCreation.Errors, e => e.Description);
             }
 
-            var userCreation = await UserManager.CreateAsync(new User { UserName = form.UserName }, form.Password);
-
-            if ( userCreation.Succeeded )
-            {
-                return await SignIn(form);
-            }
-
-            ModelState.AddErrors(userCreation.Errors, e => e.Description);
             return View();
         }
 
@@ -64,21 +63,27 @@ namespace gitdoko.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn( SignInViewModel form )
+        public async Task<IActionResult> SignIn( SignInViewModel form, string returnUrl )
         {
-            if ( !ModelState.IsValid )
+            if ( ModelState.IsValid )
             {
-                return View();
+                var signIn = await SignInManager.PasswordSignInAsync(form.UserName, form.Password, form.RememberMe, lockoutOnFailure: false);
+
+                if ( !signIn.Succeeded )
+                {
+                    ModelState.AddModelError("", "Your SignIn attempt was not sucessful.");
+                }
+                else if ( String.IsNullOrWhiteSpace(returnUrl) )
+                {
+                    return RedirectToAction(nameof(Account));
+                }
+                else if ( !Url.IsLocalUrl(returnUrl) )
+                {
+                    return Redirect("/");
+                }
             }
 
-            var signIn = await SignInManager.PasswordSignInAsync(form.UserName, form.Password, form.RememberMe, lockoutOnFailure: false);
-
-            if ( signIn.Succeeded )
-            {
-                return View();
-            }
-
-            return View(); // need redirect regardless of return url
+            return View();
         }
     }
 }
