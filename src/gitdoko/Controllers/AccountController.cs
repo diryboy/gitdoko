@@ -29,7 +29,7 @@ namespace gitdoko.Controllers
         [Authorize]
         public IActionResult Account()
         {
-            return Content($"Welcome to your account, {User.Identity.Name}!");
+            return View();
         }
 
         [HttpGet]
@@ -84,6 +84,13 @@ namespace gitdoko.Controllers
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> SignOut()
+        {
+            await SignInManager.SignOutAsync();
+
+            return Redirect("/");
         }
     }
 }
