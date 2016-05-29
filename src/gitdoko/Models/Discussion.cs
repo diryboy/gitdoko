@@ -8,8 +8,8 @@ namespace gitdoko.Models
     public class Discussion : IUserContent
     {
         public Guid Id { get; set; }
-        public Guid TopicId { get; set; }
-        public Guid CreatorId { get; set; }
+        public Topic Topic { get; set; }
+        public User Creator { get; set; }
         public string CommitId { get; set; }
         public string Diff { get; set; }
         public DateTime CreatedOn { get; set; }

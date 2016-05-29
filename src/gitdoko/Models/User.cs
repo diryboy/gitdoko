@@ -8,5 +8,8 @@ namespace gitdoko.Models
 {
     public class User : IdentityUser<Guid>
     {
+        public ICollection<Project> Projects { get; set; }
+        public ICollection<Topic> Topics { get; set; }
+        public ICollection<Discussion> Discussions { get; set; }
     }
 }

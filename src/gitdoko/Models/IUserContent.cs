@@ -7,7 +7,7 @@ namespace gitdoko.Models
 {
     public interface IUserContent
     {
-        Guid CreatorId { get; set; }
+        User Creator { get; set; }
         DateTime CreatedOn { get; set; }
         DateTime LastEditedOn { get; set; }
         string LastEditedBy { get; set; }

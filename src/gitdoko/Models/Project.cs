@@ -8,7 +8,7 @@ namespace gitdoko.Models
     public class Project : IUserContent
     {
         public Guid Id { get; set; }
-        public Guid CreatorId { get; set; }
+        public User Creator { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime LastEditedOn { get; set; }
         public string LastEditedBy { get; set; }
@@ -19,5 +19,8 @@ namespace gitdoko.Models
         public string DefaultBranch { get; set; }
         //public ICollection<string> Branches { get; set; }
         public int NextTopicId { get; set; }
+
+        public ICollection<Topic> Topics { get; set; }
+        public ICollection<CIResult> CIResults { get; set; }
     }
 }

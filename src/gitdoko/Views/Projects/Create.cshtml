@@ -1,0 +1,20 @@
+﻿@model CreateProjectViewModel
+
+<form asp-antiforgery="true" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label asp-for="Summary"></label>
+        <input asp-for="Summary" />
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+</form>
