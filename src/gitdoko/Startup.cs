@@ -43,7 +43,7 @@ namespace gitdoko
         {
             var dbPath = Path.Combine(HostingEnvironment.ContentRootPath, @"AppData\gitdoko.db");
             services//.AddSqliteDatabase()
-                    .AddDbContext<DefaultDbContext>(db => db.UseSqlite($"Data Source={dbPath}"))
+                    .AddDbContext<AppDbContext>(db => db.UseSqlite($"Data Source={dbPath}"))
                     ;
 
             var idServices = services.AddIdentity<User, IdentityRole<Guid>>(id =>
@@ -52,13 +52,13 @@ namespace gitdoko
                 id.User.RequireUniqueEmail = false;
             });
 
-            idServices.AddEntityFrameworkStores<DefaultDbContext, Guid>();
+            idServices.AddEntityFrameworkStores<AppDbContext, Guid>();
 
             services.AddMvc();
         }
 
         // Use this method to configure the HTTP request pipeline.
-        public void Configure( IApplicationBuilder app, DefaultDbContext dbContext )
+        public void Configure( IApplicationBuilder app, AppDbContext dbContext )
         {
             if ( HostingEnvironment.IsDevelopment() )
             {

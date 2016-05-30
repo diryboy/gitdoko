@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gitdoko.Models
 {
-    public class DefaultDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
-        public DefaultDbContext( DbContextOptions<DefaultDbContext> options ) : base(options) { }
+        public AppDbContext( DbContextOptions<AppDbContext> options ) : base(options) { }
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<Topic> Topics { get; set; }

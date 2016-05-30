@@ -15,16 +15,16 @@ namespace gitdoko.Controllers
     [AutoValidateAntiforgeryToken]
     public class ProjectsController : Controller
     {
-        private readonly DefaultDbContext DbContext;
+        private readonly AppDbContext AppDb;
 
-        public ProjectsController( DefaultDbContext db )
+        public ProjectsController( AppDbContext db )
         {
-            DbContext = db;
+            AppDb = db;
         }
 
         public async Task<IActionResult> Index()
         {
-            var projects = from p in DbContext.Projects
+            var projects = from p in AppDb.Projects
                            where p.Creator.UserName == User.Identity.Name
                            select p;
 
@@ -42,7 +42,7 @@ namespace gitdoko.Controllers
         {
             if ( ModelState.IsValid )
             {
-                var projects = from p in DbContext.Projects
+                var projects = from p in AppDb.Projects
                                where p.Creator.UserName == User.Identity.Name && p.Name == form.Name
                                select p;
 
@@ -52,7 +52,7 @@ namespace gitdoko.Controllers
                     return View();
                 }
 
-                DbContext.Projects.Add(new Project
+                AppDb.Projects.Add(new Project
                 {
                     Creator = new User { UserName = User.Identity.Name },
                     Name = form.Name,
@@ -60,7 +60,7 @@ namespace gitdoko.Controllers
                     Description = form.Description,
                 });
 
-                var i = await DbContext.SaveChangesAsync();
+                var i = await AppDb.SaveChangesAsync();
 
                 if ( i < 1 )
                 {
