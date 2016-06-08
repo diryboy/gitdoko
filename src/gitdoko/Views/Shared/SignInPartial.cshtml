@@ -15,10 +15,11 @@
             <label asp-for="RememberMe"></label>
         </label>
     </div>
-    <div class="form-actions">
+    <div class="form-actions align-center">
         <input type="submit" value="Sign In" class="button primary" />
     </div>
-    <div>
-        Not an existing user? Sign Up.
+    <div class="text-secondary">
+        Not an existing user?
+        <a asp-controller="Account" asp-action="SignUp">Sign Up</a>!
     </div>
 </form>

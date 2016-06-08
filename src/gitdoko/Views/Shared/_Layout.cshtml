@@ -12,6 +12,9 @@
         .valign-baseline {
             vertical-align: baseline;
         }
+        .cursor-default {
+            cursor: default;
+        }
     </style>
 
     <script defer src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
@@ -100,7 +103,7 @@
                         Sign In
                         <span class="mif-enter"></span>
                     </div>
-                    <div class="app-bar-drop-container bg-white fg-dark place-right padding20" data-role="dropdown" data-no-close="true">
+                    <div class="app-bar-drop-container bg-white fg-dark place-right padding20 cursor-default" data-role="dropdown" data-no-close="true">
                         @await Html.PartialAsync("SignInPartial")
                     </div>
                 </div>
