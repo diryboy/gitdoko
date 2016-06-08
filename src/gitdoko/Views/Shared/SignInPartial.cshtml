@@ -4,10 +4,12 @@
         <span class="mif-user prepend-icon"></span>
         <input placeholder="User name" asp-for="UserName" />
     </div>
+    <div class="clear-float"></div>
     <div class="input-control text">
         <span class="mif-key prepend-icon"></span>
         <input placeholder="Password" asp-for="Password" />
     </div>
+    <div class="clear-float"></div>
     <div class="input-control checkbox">
         <label>
             <input asp-for="RememberMe" />
@@ -18,7 +20,7 @@
     <div class="form-actions align-center">
         <input type="submit" value="Sign In" class="button primary" />
     </div>
-    <div class="text-secondary">
+    <div class="text-secondary" style="line-height: 50px">
         Not an existing user?
         <a asp-controller="Account" asp-action="SignUp">Sign Up</a>!
     </div>

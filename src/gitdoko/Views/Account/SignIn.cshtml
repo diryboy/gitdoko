@@ -1,24 +1,17 @@
 ﻿@model SignInViewModel
+@{ 
+    ViewBag.Title = "Sign In";
+}
 
-<h1>Already +1? Get in!</h1>
-<form method="post" asp-antiforgery="true">
-    <div asp-validation-summary="All"></div>
-    <div>
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" />
+<div class="window" style="width: 300px; margin: auto; margin-top: 20px;">
+
+    <div class="window-caption">
+        <div class="window-caption-title align-center">@ViewBag.Title</div>
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
+
+    <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
+    <div class="align-center">
+        @await Html.PartialAsync("SignInPartial")
     </div>
-    <div>
-        <input asp-for="RememberMe" />
-        <label asp-for="RememberMe"></label>
-    </div>
-    <div>
-        <input type="submit" value="Submit" />
-    </div>
-    <div>
-        <a asp-action="SignUp">Wanna +1?</a>
-    </div>
-</form>
+
+</div>
