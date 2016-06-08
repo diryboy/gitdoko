@@ -1,28 +1,44 @@
 ﻿@model SignUpViewModel
+@{
+    ViewBag.Title = "Sign Up";
+}
 
-<h1>Wanna +1? Do it!</h1>
-<form method="post" asp-antiforgery="true">
-    <div asp-validation-summary="All"></div>
-    <div>
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" />
+<div class="window" style="width: 300px; margin: auto; margin-top: 20px;">
+
+    <div class="window-caption">
+        <div class="window-caption-title align-center">@ViewBag.Title</div>
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-    </div>
-    <div>
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" />
-    </div>
-    <div>
-        <input asp-for="RememberMe" />
-        <label asp-for="RememberMe"></label>
-    </div>
-    <div>
-        <input type="submit" value="Submit" />
-    </div>
-    <div>
-        <a asp-action="SignIn">Already +1?</a>
-    </div>
-</form>
+
+    <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
+    <form method="post" asp-antiforgery="true" class="align-center">
+        <div class="input-control text">
+            <span class="mif-user prepend-icon"></span>
+            <input placeholder="User name" asp-for="UserName" />
+        </div>
+        <div class="clear-float"></div>
+        <div class="input-control text">
+            <span class="mif-key prepend-icon"></span>
+            <input placeholder="Password" asp-for="Password" />
+        </div>
+        <div class="clear-float"></div>
+        <div class="input-control text">
+            <span class="mif-key prepend-icon"></span>
+            <input placeholder="Confirm password" asp-for="ConfirmPassword" />
+        </div>
+        <div class="clear-float"></div>
+        <div class="input-control checkbox">
+            <label>
+                <input asp-for="RememberMe" />
+                <span class="check"></span>
+                <label asp-for="RememberMe"></label>
+            </label>
+        </div>
+        <div class="form-actions align-center">
+            <input type="submit" value="Sign Up" class="button primary" />
+        </div>
+        <div class="text-secondary" style="line-height: 50px">
+            Already have an account?
+            <a asp-controller="Account" asp-action="SignIn">Sign In</a>!
+        </div>
+    </form>
+</div>
