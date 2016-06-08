@@ -1,0 +1,15 @@
+﻿@{ 
+    Layout = "SiteLayout";
+}
+
+<div class="window" style="width: @(ViewBag.WindowWidth ?? "300px"); margin: auto; margin-top: 20px;">
+
+    <div class="window-caption">
+        <div class="window-caption-title align-center">@ViewBag.Title</div>
+    </div>
+
+    <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
+
+    @RenderBody()
+
+</div>

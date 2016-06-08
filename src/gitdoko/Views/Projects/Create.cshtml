@@ -1,20 +1,24 @@
 ﻿@model CreateProjectViewModel
+@{
+    Layout = "SingleWindowLayout";
+    ViewBag.Title = "Create Project";
+    ViewBag.WindowWidth = "400px";
+}
 
-<form asp-antiforgery="true" method="post">
-    <div asp-validation-summary="All"></div>
-    <div>
-        <label asp-for="Name"></label>
+<form asp-antiforgery="true" method="post" class="create-project-form padding10">
+    <label asp-for="Name"></label>
+    <div class="input-control text full-size">
         <input asp-for="Name" />
     </div>
-    <div>
-        <label asp-for="Summary"></label>
+    <label asp-for="Summary"></label>
+    <div class="input-control text full-size">
         <input asp-for="Summary" />
     </div>
-    <div>
-        <label asp-for="Description"></label>
+    <label asp-for="Description"></label>
+    <div class="input-control textarea full-size">
         <textarea asp-for="Description"></textarea>
     </div>
-    <div>
-        <input type="submit" value="Submit" />
+    <div class="form-actions align-center">
+        <input type="submit" value="Submit" class="button primary" />
     </div>
 </form>

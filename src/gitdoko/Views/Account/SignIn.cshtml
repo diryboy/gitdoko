@@ -1,17 +1,9 @@
 ﻿@model SignInViewModel
-@{ 
+@{
+    Layout = "SingleWindowLayout";
     ViewBag.Title = "Sign In";
 }
 
-<div class="window" style="width: 300px; margin: auto; margin-top: 20px;">
-
-    <div class="window-caption">
-        <div class="window-caption-title align-center">@ViewBag.Title</div>
-    </div>
-
-    <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
-    <div class="align-center">
-        @await Html.PartialAsync("SignInPartial")
-    </div>
-
+<div class="align-center">
+    @await Html.PartialAsync("SignInPartial")
 </div>

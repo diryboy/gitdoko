@@ -6,10 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width" />
 
-    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro.min.css" />
+    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro-responsive.min.css" />
     <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro-icons.min.css" />
+    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro.min.css" />
     <style>
-        .valign-baseline {
+        body {
+            min-width: 450px;
+        }
+        .app-bar [class^=mif-] {
             vertical-align: baseline;
         }
         .cursor-default {
@@ -26,7 +30,7 @@
     <div class="app-bar" data-role="appbar">
 
         <a class="app-bar-element" href="/">
-            <span class="mif-home valign-baseline"></span> Home
+            <span class="mif-home"></span> Home
         </a>
         <div class="app-bar-divider"></div>
 
@@ -35,7 +39,7 @@
             <ul class="app-bar-menu small-dropdown">
                 <li>
                     <a>
-                        <span class="mif-bubbles valign-baseline"></span> Notifications
+                        <span class="mif-bubbles"></span> Notifications
                     </a>
                 </li>
                 <li>
@@ -71,7 +75,7 @@
                 <ul class="app-bar-menu small-dropdown">
                     <li>
                         <a class="dropdown-toggle">
-                            <span class="mif-user valign-baseline"></span> @User.Identity.Name
+                            <span class="mif-user"></span> @User.Identity.Name
                         </a>
                         <ul class="d-menu place-right" data-role="dropdown">
                             <li>
