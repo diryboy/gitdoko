@@ -99,10 +99,10 @@
             <div class="place-right">
                 <div class="app-bar-divider"></div>
                 <div class="app-bar-element">
-                    <div class="dropdown-toggle fg-white">
+                    <a asp-controller="Account" asp-action="SignIn" class="dropdown-toggle block fg-white">
                         Sign In
                         <span class="mif-enter"></span>
-                    </div>
+                    </a>
                     <div class="app-bar-drop-container bg-white fg-dark place-right padding20 cursor-default" data-role="dropdown" data-no-close="true">
                         @await Html.PartialAsync("SignInPartial")
                     </div>
