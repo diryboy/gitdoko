@@ -14,12 +14,15 @@ namespace gitdoko.Controllers
         {
             if ( User.Identity.IsAuthenticated )
             {
-                return Content($"Hi, {User.Identity.Name}! You proved your id by using {User.Identity.AuthenticationType}.");
+                // watched projects' feeds
+                // owned & involved projects
             }
             else
             {
-                return Content("It works!");
+                // Browse public projects
             }
+
+            return View();
         }
     }
 }

@@ -2,10 +2,113 @@
 
 <html>
 <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro.min.css" />
+    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro-icons.min.css" />
+    <style>
+        .valign-baseline {
+            vertical-align: baseline;
+        }
+    </style>
+
+    <script defer src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script defer src="//cdn.bootcss.com/metro/3.0.14/js/metro.min.js"></script>
+
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    <div class="app-bar" data-role="appbar">
+
+        <a class="app-bar-element" href="/">
+            <span class="mif-home valign-baseline"></span> Home
+        </a>
+        <div class="app-bar-divider"></div>
+
+        @if ( User.Identity.IsAuthenticated )
+        {
+            <ul class="app-bar-menu small-dropdown">
+                <li>
+                    <a>
+                        <span class="mif-bubbles valign-baseline"></span> Notifications
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-toggle">
+                        <span class=""></span> Projects
+                    </a>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li>
+                            <a asp-controller="Projects" asp-action="Index">
+                                My Projects
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Projects" asp-action="Create">
+                                <span class="mif-plus"></span> Create New
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        Pull Requests
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Issues
+                    </a>
+                </li>
+            </ul>
+            <div class="place-right">
+                <div class="app-bar-divider"></div>
+                <ul class="app-bar-menu small-dropdown">
+                    <li>
+                        <a class="dropdown-toggle">
+                            <span class="mif-user valign-baseline"></span> @User.Identity.Name
+                        </a>
+                        <ul class="d-menu place-right" data-role="dropdown">
+                            <li>
+                                <a asp-controller="Account" asp-action="Account">
+                                    <span class="mif-contacts-mail"></span> View My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <span class="mif-cog"></span> Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="SignOut">
+                                    <span class="mif-switch"></span> Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="place-right">
+                <div class="app-bar-divider"></div>
+                <div class="app-bar-element">
+                    <div class="dropdown-toggle fg-white">
+                        Sign In
+                        <span class="mif-enter"></span>
+                    </div>
+                    <div class="app-bar-drop-container bg-white fg-dark place-right padding20" data-role="dropdown" data-no-close="true">
+                        @await Html.PartialAsync("SignInPartial")
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
     <div>
         @RenderBody()
     </div>
