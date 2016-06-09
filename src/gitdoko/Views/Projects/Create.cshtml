@@ -6,6 +6,7 @@
 }
 
 <form asp-antiforgery="true" method="post" class="create-project-form padding10">
+    <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
     <label asp-for="Name"></label>
     <div class="input-control text full-size">
         <input asp-for="Name" />

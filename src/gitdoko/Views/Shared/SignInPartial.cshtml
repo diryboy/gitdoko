@@ -1,5 +1,9 @@
 ﻿@model SignInViewModel
 <form method="post" asp-antiforgery="true" asp-controller="Account" asp-action="SignIn">
+    @if ( ViewBag.ShowValidationSummary == true )
+    {
+        <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
+    }
     <div class="input-control text">
         <span class="mif-user prepend-icon"></span>
         <input placeholder="User name" asp-for="UserName" />

@@ -2,8 +2,9 @@
 @{
     Layout = "SingleWindowLayout";
     ViewBag.Title = "Sign In";
+    ViewBag.ShowValidationSummary = true;
 }
 
 <div class="align-center">
-    @await Html.PartialAsync("SignInPartial")
+    @await Html.PartialAsync("SignInPartial", ViewData)
 </div>
