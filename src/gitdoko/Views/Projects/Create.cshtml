@@ -10,10 +10,14 @@
     <label asp-for="Name"></label>
     <div class="input-control text full-size">
         <input asp-for="Name" />
-    </div>
+        <span class="input-state-error mif-warning"></span>
+        <span class="input-state-success mif-checkmark"></span>
+   </div>
     <label asp-for="Summary"></label>
     <div class="input-control text full-size">
         <input asp-for="Summary" />
+        <span class="input-state-error mif-warning"></span>
+        <span class="input-state-success mif-checkmark"></span>
     </div>
     <label asp-for="Description"></label>
     <div class="input-control textarea full-size">

@@ -3,7 +3,7 @@
     var errorClass = "error";
     var successClass = "success";
     var inputControlClass = "input-control";
-    var inputElemenetSelector = "input";
+    var inputElemenetSelector = "input:not(:button, :submit), textarea, select";
     var inputControlSelector = "." + inputControlClass;
     var inputValidationErrorSelector = ".input-validation-error";
     var changeEvent = "change";
