@@ -16,7 +16,7 @@
     function clearInputValidationStateOnce() {
         var $input = $(this);
         getInputControl($input).removeClass([errorClass, successClass].join(" "));
-        $input.unbind(changeEvent, clearInputValidationStateOnce);
+        $input.off(changeEvent, clearInputValidationStateOnce);
     }
 
     $.validator.unobtrusive.options = {
@@ -27,7 +27,7 @@
             $form.find(inputElemenetSelector).each(function () {
                 var $input = $(this);
                 getInputControl($input).removeClass(errorClass).addClass(successClass);
-                $input.bind(changeEvent, clearInputValidationStateOnce);
+                $input.on(changeEvent, clearInputValidationStateOnce);
             });
 
             // visualize the current attempt
@@ -36,7 +36,7 @@
             for (var i = 0; i < length; i++) {
                 var $input = $(errors[i].element);
                 getInputControl($input).removeClass(successClass).addClass(errorClass);
-                $input.bind(changeEvent, clearInputValidationStateOnce);
+                $input.on(changeEvent, clearInputValidationStateOnce);
             }
         }
     };
