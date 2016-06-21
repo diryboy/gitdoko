@@ -13,11 +13,11 @@ namespace gitdoko.Controllers
 {
     [Authorize]
     [AutoValidateAntiforgeryToken]
-    public class ProjectsController : Controller
+    public class MyProjectsController : Controller
     {
         private readonly AppDbContext AppDb;
 
-        public ProjectsController( AppDbContext db )
+        public MyProjectsController( AppDbContext db )
         {
             AppDb = db;
         }
