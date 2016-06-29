@@ -16,13 +16,13 @@ namespace gitdoko.Controllers
         public string ProjectName { get; set; }
 
         [Route("/[controller]s/[action]")]
-        public abstract Task<IActionResult> Mine();
+        public abstract Task<IActionResult> Mine( int page );
 
         [Route("/[controller]s/[action]")]
-        public abstract Task<IActionResult> Involved();
+        public abstract Task<IActionResult> Involved( int page );
 
         [Route("/{projectOwner}/{projectName}/[controller]s/Involved")]
-        public abstract Task<IActionResult> InvolvedInProject();
+        public abstract Task<IActionResult> InvolvedInProject( int page );
 
         [Route("/{projectOwner}/{projectName}/[controller]s")]
         public abstract Task<IActionResult> Index( int page );

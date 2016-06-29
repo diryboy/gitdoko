@@ -8,17 +8,17 @@ namespace gitdoko.Controllers
 {
     public class PullRequestController : TopicController
     {
-        public override Task<IActionResult> Mine()
+        public override Task<IActionResult> Mine( int page = 1 )
         {
             return Task.FromResult((IActionResult)View("List"));
         }
 
-        public override Task<IActionResult> Involved()
+        public override Task<IActionResult> Involved( int page = 1 )
         {
             return Task.FromResult((IActionResult)View("List"));
         }
 
-        public override Task<IActionResult> InvolvedInProject()
+        public override Task<IActionResult> InvolvedInProject( int page = 1 )
         {
             return Task.FromResult((IActionResult)View("List"));
         }
