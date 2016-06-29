@@ -46,31 +46,55 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-toggle">
-                        <span class=""></span> Projects
+                    <a asp-controller="Project" asp-action="Mine" class="dropdown-toggle">
+                        <span class="mif-lab"></span> Projects
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="MyProjects" asp-action="Index">
+                            <a asp-controller="Project" asp-action="Mine">
                                 My Projects
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="MyProjects" asp-action="Create">
+                            <a asp-controller="Project" asp-action="Create">
                                 <span class="mif-plus"></span> Create New
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="">
-                        Pull Requests
+                    <a asp-controller="Issue" asp-action="Mine" class="dropdown-toggle">
+                        <span class="mif-question"></span> Issues
                     </a>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li>
+                            <a asp-controller="Issue" asp-action="Mine">
+                                My Issues
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Issue" asp-action="Involved">
+                                <span class="mif-users"></span> Involved Issues
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="">
-                        Issues
+                    <a asp-controller="PullRequest" asp-action="Mine" class="dropdown-toggle">
+                        <span class="mif-flow-branch"></span> Pull Requests
                     </a>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li>
+                            <a asp-controller="PullRequest" asp-action="Mine">
+                                My Pull Requests
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="PullRequest" asp-action="Involved">
+                                <span class="mif-users"></span> Involved Pull Requests
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <div class="place-right">

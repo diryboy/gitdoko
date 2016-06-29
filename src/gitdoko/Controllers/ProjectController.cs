@@ -11,24 +11,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gitdoko.Controllers
 {
-    [Authorize]
-    [AutoValidateAntiforgeryToken]
-    public class MyProjectsController : Controller
+    [Route("[controller]/[action]")]
+    [Authorize, AutoValidateAntiforgeryToken]
+    public class ProjectController : Controller
     {
         private readonly AppDbContext AppDb;
 
-        public MyProjectsController( AppDbContext db )
+        public ProjectController( AppDbContext db )
         {
             AppDb = db;
         }
 
-        public async Task<IActionResult> Index()
+        [Route("/[controller]s/[action]")]
+        public async Task<IActionResult> Mine()
         {
             var projects = from p in AppDb.Projects
                            where p.Creator.UserName == User.Identity.Name
                            select p;
 
             return View(await projects.ToListAsync());
+        }
+
+        [Route("/{projectOwner}/{projectName}")]
+        public IActionResult Index([FromRoute] string projectOwner, [FromRoute] string projectName)
+        {
+            return Content($"Project home for {projectOwner}/{projectName}");
         }
 
         [HttpGet]
@@ -68,7 +75,7 @@ namespace gitdoko.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Mine));
                 }
             }
 

@@ -69,14 +69,8 @@ namespace gitdoko
             app.UseIdentity();
 
             app.UseFileServer()
-               .UseMvc(ConfigureRoutes)
+               .UseMvc()
                ;
-        }
-
-        private static void ConfigureRoutes( IRouteBuilder routes )
-        {
-            routes.MapRoute("default", "{controller}/{action=Index}/{name?}")
-                  ;
         }
     }
 }
