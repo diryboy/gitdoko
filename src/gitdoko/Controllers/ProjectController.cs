@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using gitdoko.Models;
-using gitdoko.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using gitdoko.Filters;
+using gitdoko.Models;
+using gitdoko.ViewModels;
 
 namespace gitdoko.Controllers
 {
@@ -32,10 +33,11 @@ namespace gitdoko.Controllers
             return View(await projects.ToListAsync());
         }
 
-        [Route("/{projectOwner}/{projectName}")]
+        [VerifyProjectAccessible]
+        [Route("/" + VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate)]
         public IActionResult Index([FromRoute] string projectOwner, [FromRoute] string projectName)
         {
-            return Content($"Project home for {projectOwner}/{projectName}");
+            return View();
         }
 
         [HttpGet]

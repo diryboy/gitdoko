@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using gitdoko.Filters;
 
 namespace gitdoko.Controllers
 {
-    [Route("{projectOwner}/{projectName}/[controller]/{name?}/[action]")]
+    [VerifyProjectAccessible]
+    [Route(ProjectId + "/[controller]/{name?}/[action]")]
     public abstract class TopicController : Controller
     {
+        private const string ProjectId = VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate;
+
         [FromRoute]
         public string ProjectOwner { get; set; }
 
@@ -21,14 +25,14 @@ namespace gitdoko.Controllers
         [Route("/[controller]s/[action]")]
         public abstract Task<IActionResult> Involved( int page );
 
-        [Route("/{projectOwner}/{projectName}/[controller]s/Involved")]
+        [Route("/" + ProjectId + "/[controller]s/Involved")]
         public abstract Task<IActionResult> InvolvedInProject( int page );
 
-        [Route("/{projectOwner}/{projectName}/[controller]s")]
+        [Route("/" + ProjectId + "/[controller]s")]
         public abstract Task<IActionResult> Index( int page );
 
         [HttpGet]
-        [Route("/{projectOwner}/{projectName}/[controller]s/[action]")]
+        [Route("/" + ProjectId + "/[controller]s/[action]")]
         public abstract Task<IActionResult> Create();
     }
 }
