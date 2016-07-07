@@ -83,7 +83,7 @@ namespace gitdoko.Controllers
                 }
                 else if ( String.IsNullOrWhiteSpace(returnUrl) )
                 {
-                    return RedirectToAction(nameof(Profile));
+                    return RedirectToAction(nameof(Profile), new { userName = form.UserName });
                 }
                 else if ( !Url.IsLocalUrl(returnUrl) )
                 {
