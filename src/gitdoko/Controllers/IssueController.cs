@@ -32,5 +32,10 @@ namespace gitdoko.Controllers
         {
             return Task.FromResult((IActionResult)Content($"Create issue for {ProjectOwner}/{ProjectName}"));
         }
+
+        public override Task<IActionResult> Read( int number )
+        {
+            return Task.FromResult((IActionResult)Content($"View issue {number} of {ProjectOwner}/{ProjectName}"));
+        }
     }
 }

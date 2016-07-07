@@ -8,10 +8,9 @@ using gitdoko.Filters;
 namespace gitdoko.Controllers
 {
     [VerifyProjectAccessible]
-    [Route(ProjectId + "/[controller]/{name?}/[action]")]
     public abstract class TopicController : Controller
     {
-        private const string ProjectId = VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate;
+        protected const string ProjectIdTemplate = VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate;
 
         [FromRoute]
         public string ProjectOwner { get; set; }
@@ -19,20 +18,23 @@ namespace gitdoko.Controllers
         [FromRoute]
         public string ProjectName { get; set; }
 
-        [Route("/[controller]s/[action]")]
+        [Route("[controller]s/[action]")]
         public abstract Task<IActionResult> Mine( int page );
 
-        [Route("/[controller]s/[action]")]
+        [Route("[controller]s/[action]")]
         public abstract Task<IActionResult> Involved( int page );
 
-        [Route("/" + ProjectId + "/[controller]s/Involved")]
+        [Route(ProjectIdTemplate + "/[controller]s/Involved")]
         public abstract Task<IActionResult> InvolvedInProject( int page );
 
-        [Route("/" + ProjectId + "/[controller]s")]
+        [Route(ProjectIdTemplate + "/[controller]s")]
         public abstract Task<IActionResult> Index( int page );
 
         [HttpGet]
-        [Route("/" + ProjectId + "/[controller]s/[action]")]
+        [Route(ProjectIdTemplate + "/[controller]s/[action]")]
         public abstract Task<IActionResult> Create();
+
+        [Route(ProjectIdTemplate + "/[controller]/{number}")]
+        public abstract Task<IActionResult> Read( int number );
     }
 }

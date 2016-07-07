@@ -32,5 +32,10 @@ namespace gitdoko.Controllers
         {
             return Task.FromResult((IActionResult)Content($"Create pull request for {ProjectOwner}/{ProjectName}"));
         }
+
+        public override Task<IActionResult> Read( int number )
+        {
+            return Task.FromResult((IActionResult)Content($"View pull request {number} of {ProjectOwner}/{ProjectName}"));
+        }
     }
 }
