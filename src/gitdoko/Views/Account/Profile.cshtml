@@ -5,7 +5,7 @@
 
 <div>
     <ul>
-        <li><a asp-controller="MyProjects" asp-action="Index">View my projects</a></li>
+        <li><a asp-controller="Project" asp-action="Authored" asp-route-userName="@User.Identity.Name">View my projects</a></li>
     </ul>
 </div>
 
