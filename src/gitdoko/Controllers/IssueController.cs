@@ -2,40 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using gitdoko.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
     public class IssueController : TopicController
     {
-        public override Task<IActionResult> Mine( int page = 1 )
+        public override async Task<IActionResult> Authored( string userName, int page )
         {
-            return Task.FromResult((IActionResult)View("List"));
+            return View("List");
         }
 
-        public override Task<IActionResult> Involved( int page = 1 )
+        public override async Task<IActionResult> Involved( string userName, int page )
         {
-            return Task.FromResult((IActionResult)View("List"));
+            return View("List");
         }
 
-        public override Task<IActionResult> InvolvedInProject( int page = 1 )
+        public override async Task<IActionResult> Index( TopicSearchLimits limits )
         {
-            return Task.FromResult((IActionResult)View("List"));
+            return Content($"Issue index for {ProjectOwner}/{ProjectName}");
         }
 
-        public override Task<IActionResult> Index( int page = 1 )
+        public override async Task<IActionResult> Create()
         {
-            return Task.FromResult((IActionResult)Content($"Issues for {ProjectOwner}/{ProjectName}, page {page}"));
+            return Content($"Create issue for {ProjectOwner}/{ProjectName}");
         }
 
-        public override Task<IActionResult> Create()
+        public override async Task<IActionResult> Read( int number )
         {
-            return Task.FromResult((IActionResult)Content($"Create issue for {ProjectOwner}/{ProjectName}"));
-        }
-
-        public override Task<IActionResult> Read( int number )
-        {
-            return Task.FromResult((IActionResult)Content($"View issue {number} of {ProjectOwner}/{ProjectName}"));
+            return Content($"View issue {number} of {ProjectOwner}/{ProjectName}");
         }
     }
 }

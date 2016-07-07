@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using gitdoko.Extensions;
+using gitdoko.Filters;
 using gitdoko.Models;
 using gitdoko.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -26,10 +27,17 @@ namespace gitdoko.Controllers
             SignInManager = sm;
         }
 
-        [Authorize]
-        public IActionResult Account()
+        [VerifyUserExists]
+        [Route("/" + VerifyUserExistsAttribute.UserNameRouteTemplate)]
+        public IActionResult Profile()
         {
             return View();
+        }
+
+        [Authorize]
+        public IActionResult Settings()
+        {
+            return Content("Settings");
         }
 
         [HttpGet]
@@ -75,7 +83,7 @@ namespace gitdoko.Controllers
                 }
                 else if ( String.IsNullOrWhiteSpace(returnUrl) )
                 {
-                    return RedirectToAction(nameof(Account));
+                    return RedirectToAction(nameof(Profile));
                 }
                 else if ( !Url.IsLocalUrl(returnUrl) )
                 {

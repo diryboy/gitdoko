@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using gitdoko.Filters;
+using gitdoko.ViewModels;
 
 namespace gitdoko.Controllers
 {
@@ -11,6 +12,7 @@ namespace gitdoko.Controllers
     public abstract class TopicController : Controller
     {
         protected const string ProjectIdTemplate = VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate;
+        private const string UserNameTemplate = VerifyUserExistsAttribute.UserNameRouteTemplate;
 
         [FromRoute]
         public string ProjectOwner { get; set; }
@@ -18,17 +20,16 @@ namespace gitdoko.Controllers
         [FromRoute]
         public string ProjectName { get; set; }
 
-        [Route("[controller]s/[action]")]
-        public abstract Task<IActionResult> Mine( int page );
+        [VerifyUserExists]
+        [Route("/" + UserNameTemplate + "/[controller]s")]
+        public abstract Task<IActionResult> Authored( string userName, int page );
 
-        [Route("[controller]s/[action]")]
-        public abstract Task<IActionResult> Involved( int page );
-
-        [Route(ProjectIdTemplate + "/[controller]s/Involved")]
-        public abstract Task<IActionResult> InvolvedInProject( int page );
+        [VerifyUserExists]
+        [Route("/" + UserNameTemplate + "/[controller]s/[action]")]
+        public abstract Task<IActionResult> Involved( string userName, int page );
 
         [Route(ProjectIdTemplate + "/[controller]s")]
-        public abstract Task<IActionResult> Index( int page );
+        public abstract Task<IActionResult> Index( TopicSearchLimits limits );
 
         [HttpGet]
         [Route(ProjectIdTemplate + "/[controller]s/[action]")]

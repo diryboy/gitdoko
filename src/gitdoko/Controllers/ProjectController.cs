@@ -23,8 +23,9 @@ namespace gitdoko.Controllers
             AppDb = db;
         }
 
-        [Route("/[controller]s/[action]")]
-        public async Task<IActionResult> Mine()
+        [VerifyUserExists]
+        [Route("/" + VerifyUserExistsAttribute.UserNameRouteTemplate + "/[controller]s")]
+        public async Task<IActionResult> Authored( string userName, int page )
         {
             var projects = from p in AppDb.Projects
                            where p.Creator.UserName == User.Identity.Name
@@ -35,7 +36,7 @@ namespace gitdoko.Controllers
 
         [VerifyProjectAccessible]
         [Route("/" + VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate)]
-        public IActionResult Index([FromRoute] string projectOwner, [FromRoute] string projectName)
+        public IActionResult Index( [FromRoute] string projectOwner, [FromRoute] string projectName )
         {
             return View();
         }
@@ -77,7 +78,7 @@ namespace gitdoko.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Mine));
+                    return RedirectToAction(nameof(Authored), new { userName = User.Identity.Name });
                 }
             }
 
