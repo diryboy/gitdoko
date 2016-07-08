@@ -41,8 +41,15 @@ namespace gitdoko.Filters
             private async Task VerifyUserExistsAsync( ActionExecutingContext context, ActionExecutionDelegate next )
             {
                 var userName = (string)context.RouteData.Values[Key_UserName];
-                if ( await AppDb.Users.AnyAsync(user => user.UserName == userName) )
+                var user = await AppDb.Users.FirstOrDefaultAsync(u => 0 == String.Compare(u.UserName, userName, true));
+                if ( user != null )
                 {
+                    var userParamName = context.ActionDescriptor.Parameters.FirstOrDefault(p => p.ParameterType == typeof(User))?.Name;
+                    if ( userParamName != null )
+                    {
+                        context.ActionArguments[userParamName] = user;
+                    }
+
                     await next();
                 }
                 else

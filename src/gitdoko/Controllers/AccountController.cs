@@ -37,7 +37,7 @@ namespace gitdoko.Controllers
         [Authorize]
         public IActionResult Settings()
         {
-            return Content("Settings");
+            return View();
         }
 
         [HttpGet]

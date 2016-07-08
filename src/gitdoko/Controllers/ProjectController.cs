@@ -25,10 +25,10 @@ namespace gitdoko.Controllers
 
         [VerifyUserExists]
         [Route("/" + VerifyUserExistsAttribute.UserNameRouteTemplate + "/[controller]s")]
-        public async Task<IActionResult> Authored( string userName, int page )
+        public async Task<IActionResult> Authored( User author, int page )
         {
             var projects = from p in AppDb.Projects
-                           where p.Creator.UserName == User.Identity.Name
+                           where p.Creator == author
                            select p;
 
             return View(await projects.ToListAsync());

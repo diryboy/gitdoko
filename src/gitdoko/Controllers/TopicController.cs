@@ -5,11 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using gitdoko.Filters;
 using gitdoko.ViewModels;
+using gitdoko.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gitdoko.Controllers
 {
     [VerifyProjectAccessible]
-    public abstract class TopicController : Controller
+    [AutoValidateAntiforgeryToken]
+    [Route(ProjectIdTemplate + "/[controller]")]
+    public abstract class TopicController<TEditViewModel> : Controller
     {
         protected const string ProjectIdTemplate = VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate;
         private const string UserNameTemplate = VerifyUserExistsAttribute.UserNameRouteTemplate;
@@ -22,20 +26,40 @@ namespace gitdoko.Controllers
 
         [VerifyUserExists]
         [Route("/" + UserNameTemplate + "/[controller]s")]
-        public abstract Task<IActionResult> Authored( string userName, int page );
+        public abstract Task<IActionResult> Authored( User author, int page );
 
         [VerifyUserExists]
-        [Route("/" + UserNameTemplate + "/[controller]s/[action]")]
-        public abstract Task<IActionResult> Involved( string userName, int page );
+        [Route("/" + UserNameTemplate + "/[action]/[controller]s")]
+        public abstract Task<IActionResult> Involved( User involvedUser, int page );
 
-        [Route(ProjectIdTemplate + "/[controller]s")]
+        [Route("/" + ProjectIdTemplate + "/[controller]s")]
         public abstract Task<IActionResult> Index( TopicSearchLimits limits );
 
         [HttpGet]
-        [Route(ProjectIdTemplate + "/[controller]s/[action]")]
+        [Route("[action]")]
         public abstract Task<IActionResult> Create();
 
-        [Route(ProjectIdTemplate + "/[controller]/{number}")]
+        [HttpPost]
+        [Route("[action]")]
+        public abstract Task<IActionResult> Create( TEditViewModel viewModel );
+
+        [Route("{number}")]
         public abstract Task<IActionResult> Read( int number );
+
+        [HttpGet, Authorize]
+        [Route("{number}/[action]")]
+        public abstract Task<IActionResult> Update( int number );
+
+        [HttpPost, Authorize]
+        [Route("{number}/[action]")]
+        public abstract Task<IActionResult> Update( int number, TEditViewModel viewModel );
+
+        [HttpPost, Authorize]
+        [Route("{number}/[action]")]
+        public abstract Task<IActionResult> Close( int number );
+
+        [HttpPost, Authorize]
+        [Route("{number}/[action]")]
+        public abstract Task<IActionResult> Delete( int number );
     }
 }
