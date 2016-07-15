@@ -8,54 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
-    public class IssueController : TopicController<TopicEditViewModel>
+    public class IssueController : TopicController<Issue, TopicEditViewModel>
     {
-        public override async Task<IActionResult> Authored( User author, int page )
+        public IssueController( AppDbContext db ) : base(db)
         {
-            return View();
         }
 
-        public override async Task<IActionResult> Involved( User involvedUser, int page )
-        {
-            return View("List");
-        }
-
-        public override async Task<IActionResult> Index( TopicSearchLimits limits )
-        {
-            return Content($"Issue index for {ProjectOwner}/{ProjectName}");
-        }
-
-        public override async Task<IActionResult> Create()
-        {
-            return Content($"Create issue for {ProjectOwner}/{ProjectName}");
-        }
-
-        public override Task<IActionResult> Create( TopicEditViewModel viewModel )
-        {
-            throw new NotImplementedException();
-        }
-
-        public override async Task<IActionResult> Read( int number )
-        {
-            return Content($"View issue {number} of {ProjectOwner}/{ProjectName}");
-        }
-
-        public override Task<IActionResult> Update( int number )
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IActionResult> Update( int number, TopicEditViewModel viewModel )
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IActionResult> Close( int number )
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<IActionResult> Delete( int number )
+        protected override void CreateOrUpdateTopicFromViewMode( ref Issue topic, TopicEditViewModel viewModel )
         {
             throw new NotImplementedException();
         }

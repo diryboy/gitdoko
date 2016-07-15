@@ -11,6 +11,7 @@ namespace gitdoko.Filters
 {
     public class VerifyProjectAccessibleAttribute : TypeFilterAttribute
     {
+        public const string HttpContextItemKey_VerifiedProject = "AccessibleVerifiedProject";
         public const string ProjectIdentifierRouteTemplate = "{projectOwner}/{projectName}";
         private const string Key_ProjectOwner = "projectOwner";
         private const string Key_ProjectName = "projectName";
@@ -51,7 +52,8 @@ namespace gitdoko.Filters
                 var projects = await projectQuery.ToArrayAsync();
                 if ( projects.Length == 1 )
                 {
-                    //var targetProject = projects[0];
+                    var targetProject = projects[0];
+                    context.HttpContext.Items[HttpContextItemKey_VerifiedProject] = targetProject;
                     //if ( targetProject.UserRights )
                     //{
                     //}

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gitdoko.Models
 {
-    public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext( DbContextOptions<AppDbContext> options ) : base(options) { }
 

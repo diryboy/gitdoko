@@ -5,15 +5,17 @@ using System.Threading.Tasks;
 
 namespace gitdoko.Models
 {
-    public class Topic : IUserContent
+    public abstract class Topic : IUserContent
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public Project Project { get; set; }
         public User Creator { get; set; }
         public int TopicNumber { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime LastEditedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime LastEditedOn { get; set; } = DateTime.MinValue;
+        public DateTime ClosedOn { get; set; } = DateTime.MinValue;
         public string LastEditedBy { get; set; }
+
         public string Summary { get; set; }
         public string Content { get; set; }
 
