@@ -52,11 +52,17 @@ namespace gitdoko.Filters
                 var projects = await projectQuery.ToArrayAsync();
                 if ( projects.Length == 1 )
                 {
+                    //TODO: if ( targetProject.UserRights ... )
+
                     var targetProject = projects[0];
                     context.HttpContext.Items[HttpContextItemKey_VerifiedProject] = targetProject;
-                    //if ( targetProject.UserRights )
-                    //{
-                    //}
+
+                    var projectParamName = context.ActionDescriptor.Parameters.FirstOrDefault(p => p.ParameterType == typeof(Project))?.Name;
+                    if ( projectParamName != null )
+                    {
+                        context.ActionArguments[projectParamName] = targetProject;
+                    }
+
                     await next();
                 }
                 else

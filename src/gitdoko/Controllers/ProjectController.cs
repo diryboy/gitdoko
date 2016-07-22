@@ -12,8 +12,8 @@ using gitdoko.ViewModels;
 
 namespace gitdoko.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     [Route("[controller]/[action]")]
-    [Authorize, AutoValidateAntiforgeryToken]
     public class ProjectController : Controller
     {
         private readonly AppDbContext AppDb;
@@ -36,7 +36,7 @@ namespace gitdoko.Controllers
 
         [VerifyProjectAccessible]
         [Route("/" + VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate)]
-        public IActionResult Index( [FromRoute] string projectOwner, [FromRoute] string projectName )
+        public IActionResult Index( Project project )
         {
             return View();
         }
@@ -47,6 +47,7 @@ namespace gitdoko.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create( CreateProjectViewModel form )
         {

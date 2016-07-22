@@ -29,9 +29,9 @@ namespace gitdoko.Controllers
 
         [VerifyUserExists]
         [Route("/" + VerifyUserExistsAttribute.UserNameRouteTemplate)]
-        public IActionResult Profile()
+        public IActionResult Profile( User user )
         {
-            return View();
+            return View(user);
         }
 
         [Authorize]

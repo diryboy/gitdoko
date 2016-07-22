@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace gitdoko.ViewModels
 {
-    public class PullRequestEditViewModel : TopicEditViewModel
+    public class PullRequestCreateViewModel : TopicEditViewModel
     {
     }
 }

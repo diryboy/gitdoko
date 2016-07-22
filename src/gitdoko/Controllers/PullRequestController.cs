@@ -8,13 +8,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
-    public class PullRequestController : TopicController<PullRequest, PullRequestEditViewModel>
+    public class PullRequestController : TopicController<PullRequest, PullRequestCreateViewModel, TopicEditViewModel>
     {
         public PullRequestController( AppDbContext db ) : base(db)
         {
         }
 
-        protected override void CreateOrUpdateTopicFromViewMode( ref PullRequest topic, PullRequestEditViewModel viewModel )
+        protected override PullRequest CreateTopicFromViewMode( PullRequestCreateViewModel viewModel )
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override TopicEditViewModel CreateEditViewModelFromTopic( Topic topic )
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void UpdateTopicFromViewMode( PullRequest topic, TopicEditViewModel viewModel )
         {
             throw new NotImplementedException();
         }

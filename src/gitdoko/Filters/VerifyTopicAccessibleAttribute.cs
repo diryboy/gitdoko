@@ -9,20 +9,49 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gitdoko.Filters
 {
-    public class VerifyTopicExistsAttribute : TypeFilterAttribute
+    public enum TopicOperation
+    {
+        Read,
+        Update,
+        Close,
+        Delete
+    }
+
+    public class VerifyTopicAccessibleAttribute : Attribute, IFilterFactory
     {
         public const string TopicNumberRouteTemplate = "{topicNumber}";
         private const string Key_TopicNumber = "topicNumber";
+        private readonly TopicOperation Operation;
 
-        public VerifyTopicExistsAttribute() : base(typeof(VerifyTopicExistsFilter)) { }
+        public bool IsReusable => false;
 
-        private class VerifyTopicExistsFilter : IAsyncActionFilter
+        public VerifyTopicAccessibleAttribute( TopicOperation operation )
+        {
+            Operation = operation;
+        }
+
+        public IFilterMetadata CreateInstance( IServiceProvider serviceProvider )
+        {
+            var db = serviceProvider.GetService(typeof(AppDbContext)) as AppDbContext;
+            if ( db != null )
+            {
+                return new VerifyTopicAccessibleFilter(db, Operation);
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(db), "Configure AppDbContext in DI!"); //TODO: Find correct behavior.
+            }
+        }
+
+        private class VerifyTopicAccessibleFilter : IAsyncActionFilter
         {
             private readonly AppDbContext AppDb;
+            private readonly TopicOperation Operation;
 
-            public VerifyTopicExistsFilter( AppDbContext db )
+            public VerifyTopicAccessibleFilter( AppDbContext db, TopicOperation operation )
             {
                 AppDb = db;
+                Operation = operation;
             }
 
             public Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next )
@@ -46,6 +75,8 @@ namespace gitdoko.Filters
                 var topic = await AppDb.Topics.FirstOrDefaultAsync(t => t.Project == project && t.TopicNumber == topicNumber);
                 if ( topic != null )
                 {
+                    //TODO: check operation
+
                     var topicParamName = context.ActionDescriptor.Parameters.FirstOrDefault(p => p.ParameterType == typeof(Topic))?.Name;
                     if ( topicParamName != null )
                     {
