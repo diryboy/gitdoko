@@ -46,13 +46,13 @@ namespace gitdoko
                     .AddDbContext<AppDbContext>(db => db.UseSqlite($"Data Source={dbPath}"))
                     ;
 
-            var idServices = services.AddIdentity<User, IdentityRole<Guid>>(id =>
+            var idServices = services.AddIdentity<User, IdentityRole>(id =>
             {
                 id.Cookies.ApplicationCookie.LoginPath = "/SignIn";
                 id.User.RequireUniqueEmail = false;
             });
 
-            idServices.AddEntityFrameworkStores<AppDbContext, Guid>();
+            idServices.AddEntityFrameworkStores<AppDbContext>();
 
             services.AddMvc();
         }

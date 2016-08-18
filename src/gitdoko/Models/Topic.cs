@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace gitdoko.Models
 {
-    public abstract class Topic : IUserContent
+    public class Topic : IUserContent
     {
         public string Id { get; set; }
         public Project Project { get; set; }
