@@ -25,7 +25,7 @@ namespace gitdoko.Filters
 
         public bool IsReusable => false;
 
-        public VerifyTopicAccessibleAttribute( TopicOperation operation )
+        public VerifyTopicAccessibleAttribute( TopicOperation operation = TopicOperation.Read )
         {
             Operation = operation;
         }

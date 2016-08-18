@@ -14,7 +14,7 @@ namespace gitdoko.Controllers
         {
         }
 
-        protected override PullRequest CreateTopicFromViewMode( PullRequestCreateViewModel viewModel )
+        protected override PullRequest CreateTopicFromViewModel( PullRequestCreateViewModel viewModel )
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace gitdoko.Controllers
             throw new NotImplementedException();
         }
 
-        protected override void UpdateTopicFromViewMode( PullRequest topic, TopicEditViewModel viewModel )
+        protected override void UpdateTopicFromViewModel( PullRequest topic, TopicEditViewModel viewModel )
         {
             throw new NotImplementedException();
         }

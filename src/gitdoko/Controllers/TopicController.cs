@@ -61,7 +61,7 @@ namespace gitdoko.Controllers
         [Route("[action]")]
         public virtual async Task<IActionResult> Create( TCreateViewModel viewModel )
         {
-            TModel topic = CreateTopicFromViewMode(viewModel);
+            TModel topic = CreateTopicFromViewModel(viewModel);
 
             AppDb.Topics.Add(topic);
             await AppDb.SaveChangesAsync();
@@ -83,7 +83,7 @@ namespace gitdoko.Controllers
         public virtual async Task<IActionResult> Update( Topic topic, TEditViewModel viewModel )
         {
             var model = (TModel)topic;
-            UpdateTopicFromViewMode(model, viewModel);
+            UpdateTopicFromViewModel(model, viewModel);
             await AppDb.SaveChangesAsync();
 
             return RedirectToRead(topic);
@@ -109,11 +109,11 @@ namespace gitdoko.Controllers
             return RedirectToAction(nameof(Index), new { projectOwner = ProjectOwner, projectName = ProjectName });
         }
 
-        protected abstract TModel CreateTopicFromViewMode( TCreateViewModel viewModel );
+        protected abstract TModel CreateTopicFromViewModel( TCreateViewModel viewModel );
 
         protected abstract TEditViewModel CreateEditViewModelFromTopic( Topic topic );
 
-        protected abstract void UpdateTopicFromViewMode( TModel topic, TEditViewModel viewModel );
+        protected abstract void UpdateTopicFromViewModel( TModel topic, TEditViewModel viewModel );
 
 
         protected IActionResult RedirectToRead( Topic topic )
