@@ -7,7 +7,7 @@ namespace gitdoko.Models
 {
     public class Topic : IUserContent
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public Project Project { get; set; }
         public User Creator { get; set; }
         public int TopicNumber { get; set; }

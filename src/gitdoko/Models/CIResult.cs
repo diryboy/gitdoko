@@ -15,7 +15,7 @@ namespace gitdoko.Models
 
     public class CIResult
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public Project Project { get; set; }
         public string CommitId { get; set; }
         public CIStatus Status { get; set; }
