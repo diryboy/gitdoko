@@ -17,10 +17,12 @@ namespace gitdoko.Controllers
     public class ProjectController : Controller
     {
         private readonly AppDbContext AppDb;
+        private readonly UserManager<User> UserManager;
 
-        public ProjectController( AppDbContext db )
+        public ProjectController( AppDbContext db, UserManager<User> um )
         {
             AppDb = db;
+            UserManager = um;
         }
 
         [VerifyUserExists]
@@ -36,9 +38,9 @@ namespace gitdoko.Controllers
 
         [VerifyProjectAccessible]
         [Route("/" + VerifyProjectAccessibleAttribute.ProjectIdentifierRouteTemplate)]
-        public IActionResult Index( Project project )
+        public IActionResult Home( Project project )
         {
-            return View();
+            return View(project);
         }
 
         [HttpGet]
@@ -53,8 +55,9 @@ namespace gitdoko.Controllers
         {
             if ( ModelState.IsValid )
             {
+                var currentUser = await UserManager.GetUserAsync(User);
                 var projects = from p in AppDb.Projects
-                               where p.Creator.UserName == User.Identity.Name && p.Name == form.Name
+                               where p.Creator == currentUser && String.Equals(p.Name, form.Name, StringComparison.OrdinalIgnoreCase)
                                select p;
 
                 if ( await projects.AnyAsync() )
@@ -65,7 +68,7 @@ namespace gitdoko.Controllers
 
                 AppDb.Projects.Add(new Project
                 {
-                    Creator = new User { UserName = User.Identity.Name },
+                    Creator = await UserManager.GetUserAsync(User),
                     Name = form.Name,
                     Summary = form.Summary,
                     Description = form.Description,

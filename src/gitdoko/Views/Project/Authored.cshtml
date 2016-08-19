@@ -7,4 +7,11 @@
     
     <h1>Projects</h1>
 
+    <ul>
+        @foreach ( var project in Model )
+        {
+            <li><a asp-action="Home" asp-route-projectOwner="@project.Creator.UserName" asp-route-projectName="@project.Name">@project.Name</a></li>
+        }
+    </ul>
+
 </div>
