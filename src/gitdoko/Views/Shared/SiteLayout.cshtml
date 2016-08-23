@@ -137,7 +137,7 @@
                         <span class="mif-enter"></span>
                     </a>
                     <div class="app-bar-drop-container bg-white fg-dark place-right padding20 cursor-default" data-role="dropdown" data-no-close="true">
-                        @await Html.PartialAsync("SignInPartial")
+                        @await Html.PartialAsync("SignInPartial", new SignInViewModel())
                     </div>
                 </div>
             </div>
