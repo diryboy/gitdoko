@@ -39,7 +39,7 @@
 
         @if ( User.Identity.IsAuthenticated )
         {
-            var userName = User.Identity.Name;
+            var currentUserName = User.Identity.Name;
 
             <ul class="app-bar-menu small-dropdown">
                 <li>
@@ -48,12 +48,12 @@
                     </a>
                 </li>
                 <li>
-                    <a asp-controller="Project" asp-action="Authored" asp-route-userName="@userName" class="dropdown-toggle">
+                    <a asp-controller="Project" asp-action="Authored" asp-route-userName="@currentUserName" class="dropdown-toggle">
                         <span class="mif-lab"></span> Projects
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="Project" asp-action="Authored" asp-route-userName="@userName">
+                            <a asp-controller="Project" asp-action="Authored" asp-route-userName="@currentUserName">
                                 My Projects
                             </a>
                         </li>
@@ -65,34 +65,34 @@
                     </ul>
                 </li>
                 <li>
-                    <a asp-controller="Issue" asp-action="Authored" asp-route-userName="@userName" class="dropdown-toggle">
+                    <a asp-controller="Issue" asp-action="Authored" asp-route-userName="@currentUserName" class="dropdown-toggle">
                         <span class="mif-question"></span> Issues
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="Issue" asp-action="Authored" asp-route-userName="@userName">
+                            <a asp-controller="Issue" asp-action="Authored" asp-route-userName="@currentUserName">
                                 My Issues
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Issue" asp-action="Involved" asp-route-userName="@userName">
+                            <a asp-controller="Issue" asp-action="Involved" asp-route-userName="@currentUserName">
                                 <span class="mif-users"></span> Involved Issues
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a asp-controller="PullRequest" asp-action="Authored" asp-route-userName="@userName" class="dropdown-toggle">
+                    <a asp-controller="PullRequest" asp-action="Authored" asp-route-userName="@currentUserName" class="dropdown-toggle">
                         <span class="mif-flow-branch"></span> Pull Requests
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="PullRequest" asp-action="Authored" asp-route-userName="@userName">
+                            <a asp-controller="PullRequest" asp-action="Authored" asp-route-userName="@currentUserName">
                                 My Pull Requests
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="PullRequest" asp-action="Involved" asp-route-userName="@userName">
+                            <a asp-controller="PullRequest" asp-action="Involved" asp-route-userName="@currentUserName">
                                 <span class="mif-users"></span> Involved Pull Requests
                             </a>
                         </li>
@@ -104,11 +104,11 @@
                 <ul class="app-bar-menu small-dropdown">
                     <li>
                         <a class="dropdown-toggle">
-                            <span class="mif-user"></span> @userName
+                            <span class="mif-user"></span> @currentUserName
                         </a>
                         <ul class="d-menu place-right" data-role="dropdown">
                             <li>
-                                <a asp-controller="Account" asp-action="Profile" asp-route-userName="@userName">
+                                <a asp-controller="Account" asp-action="Profile" asp-route-userName="@currentUserName">
                                     <span class="mif-contacts-mail"></span> View My Profile
                                 </a>
                             </li>

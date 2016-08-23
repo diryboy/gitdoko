@@ -12,8 +12,8 @@ namespace gitdoko.Filters
     public class VerifyProjectAccessibleAttribute : TypeFilterAttribute
     {
         public const string HttpContextItemKey_VerifiedProject = "AccessibleVerifiedProject";
-        public const string ProjectIdentifierRouteTemplate = "{projectOwner}/{projectName}";
-        private const string Key_ProjectOwner = "projectOwner";
+        public const string ProjectIdentifierRouteTemplate = "{userName}/{projectName}";
+        private const string Key_ProjectOwner = "userName";
         private const string Key_ProjectName = "projectName";
 
         public VerifyProjectAccessibleAttribute() : base(typeof(VerifyProjectAccessibleFilter)) { }

@@ -5,7 +5,11 @@
 
 <div class="padding10">
 
-    <h1>@Model.Creator.UserName @Model.Name</h1>
+    <h1>
+        <a asp-controller="Account" asp-action="Profile">@Model.Creator.UserName</a>
+        /
+        <a asp-controller="Project" asp-action="Home">@Model.Name</a>
+    </h1>
 
     <h2>
         @Model.Summary
