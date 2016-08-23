@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "SiteLayout";
+}
+
+<div class="grid">
+    <div class="row cells5">
+        <div class="cell">
+            <ul class="sidebar2">
+                <li class="title">Project</li>
+                <li>
+                    <a asp-controller="project" asp-action="home">
+                        <span class="icon mif-home"></span>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="issue" asp-action="index">
+                        <span class="icon mif-question"></span>
+                        Issues
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="pullrequest" asp-action="index">
+                        <span class="icon mif-flow-branch"></span>
+                        Pull Requests
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="cell colspan4">
+            @RenderBody()
+        </div>
+    </div>
+</div>

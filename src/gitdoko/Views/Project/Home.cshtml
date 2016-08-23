@@ -1,8 +1,11 @@
 ﻿@model Project
+@{
+    Layout = "ProjectLayout";
+}
 
 <div class="padding10">
 
-    <h1>@Model.Name</h1>
+    <h1>@Model.Creator.UserName @Model.Name</h1>
 
     <h2>
         @Model.Summary
@@ -11,10 +14,6 @@
     <div>
         @Model.Description
     </div>
-
-    <a asp-controller="Issue" asp-action="Index">Issues</a>
-    <br />
-    <a asp-controller="PullRequest" asp-action="Index">Pull Requests</a>
 
 </div>
 
