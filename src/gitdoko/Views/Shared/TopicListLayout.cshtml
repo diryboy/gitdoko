@@ -1,1 +1,10 @@
-﻿@model IEnumerable<Topic>
+﻿@{
+    if ( ViewBag.UseProjectLayout == true )
+    {
+        Layout = "ProjectLayout";
+    }
+}
+
+@await RenderSectionAsync("Header")
+
+@await Html.PartialAsync("TopicListPartial")

@@ -49,7 +49,7 @@ namespace gitdoko.Controllers
 
         [Route("/" + ProjectIdRoute + "/[controller]s")]
         public virtual async Task<IActionResult> Index( TopicSearchLimits limits )
-            => View("List", await AppDb.Topics.Where(t => t.GetType() == typeof(TModel)).ToListAsync());
+            => View(await AppDb.Topics.Where(t => t.GetType() == typeof(TModel)).ToListAsync());
 
         [HttpGet]
         [Route("[action]")]
@@ -66,11 +66,11 @@ namespace gitdoko.Controllers
             AppDb.Topics.Add(topic);
             await AppDb.SaveChangesAsync();
 
-            return RedirectToRead(topic);
+            return RedirectToDetails(topic);
         }
 
         [VerifyTopicAccessible, Route(TopicNumberRoute)]
-        public virtual async Task<IActionResult> Read( Topic topic )
+        public virtual async Task<IActionResult> Details( Topic topic )
             => View(topic);
 
         [HttpGet]
@@ -86,7 +86,7 @@ namespace gitdoko.Controllers
             UpdateTopicFromViewModel(model, viewModel);
             await AppDb.SaveChangesAsync();
 
-            return RedirectToRead(topic);
+            return RedirectToDetails(topic);
         }
 
         [HttpPost]
@@ -96,7 +96,7 @@ namespace gitdoko.Controllers
             topic.ClosedOn = DateTime.UtcNow;
             await AppDb.SaveChangesAsync();
 
-            return RedirectToRead(topic);
+            return RedirectToDetails(topic);
         }
 
         [HttpPost]
@@ -116,9 +116,9 @@ namespace gitdoko.Controllers
         protected abstract void UpdateTopicFromViewModel( TModel topic, TEditViewModel viewModel );
 
 
-        protected IActionResult RedirectToRead( Topic topic )
+        protected IActionResult RedirectToDetails( Topic topic )
         {
-            return RedirectToAction(nameof(Read), new { topicNumber = topic.TopicNumber });
+            return RedirectToAction(nameof(Details), new { topicNumber = topic.TopicNumber });
         }
     }
 }
