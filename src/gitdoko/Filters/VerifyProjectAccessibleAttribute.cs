@@ -44,19 +44,17 @@ namespace gitdoko.Filters
             {
                 var routeValues = context.RouteData.Values;
 
-                var projectQuery = from u in AppDb.Users
-                                   from p in AppDb.Projects
-                                   where u == p.Creator
-                                      && String.Equals(u.UserName, (string)routeValues[Key_ProjectOwner], StringComparison.OrdinalIgnoreCase)
+                var projectQuery = from p in AppDb.Projects.Include(p => p.Creator)
+                                   where String.Equals(p.Creator.UserName, (string)routeValues[Key_ProjectOwner], StringComparison.OrdinalIgnoreCase)
                                       && String.Equals(p.Name, (string)routeValues[Key_ProjectName], StringComparison.OrdinalIgnoreCase)
-                                   select new { Creator = u, Project = p };
+                                   select p;
 
                 var projects = await projectQuery.ToArrayAsync();
                 if ( projects.Length == 1 )
                 {
                     //TODO: if ( targetProject.UserRights ... )
 
-                    var targetProject = projects[0].Project;
+                    var targetProject = projects[0];
                     context.HttpContext.Items[HttpContextItemKey_VerifiedProject] = targetProject;
 
                     var projectParamName = context.ActionDescriptor.Parameters.FirstOrDefault(p => p.ParameterType == typeof(Project))?.Name;
