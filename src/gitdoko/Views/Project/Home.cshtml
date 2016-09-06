@@ -1,16 +1,10 @@
 ﻿@model Project
 @{
-    Layout = "ProjectLayout";
     var Project = Model;
+    ViewBag.Title = $"Home of {Project.Creator.UserName}/{Project.Name}";
 }
 
 <div class="padding10">
-
-    <h1>
-        <a asp-controller="Account" asp-action="Profile">@Project.Creator.UserName</a>
-        /
-        <a asp-controller="Project" asp-action="Home">@Project.Name</a>
-    </h1>
 
     <h2>
         @Project.Summary

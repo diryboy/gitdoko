@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.UseProjectLayout = true;
     Layout = "TopicListLayout";
+    ViewBag.Title = $"Issues of {ViewBag.Project.Creator.UserName}/{ViewBag.Project.Name}";
 }
 
 @section Header {
-    <a asp-action="Create">Create Issue</a>
+    <a class="button info" asp-action="Create">Create Issue</a>
 }

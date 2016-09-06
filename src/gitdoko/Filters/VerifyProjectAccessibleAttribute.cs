@@ -63,6 +63,12 @@ namespace gitdoko.Filters
                         context.ActionArguments[projectParamName] = targetProject;
                     }
 
+                    var controller = context.Controller as Controller;
+                    if ( controller != null )
+                    {
+                        controller.ViewBag.Project = targetProject;
+                    }
+
                     await next();
                 }
                 else

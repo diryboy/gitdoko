@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var ProjectContext = ViewBag.Project as Project;
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -11,13 +14,20 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro.min.css" />
     <style>
         body {
-            min-width: 450px;
+            min-width: 50rem;
         }
         .app-bar [class^=mif-] {
             vertical-align: baseline;
         }
         .cursor-default {
             cursor: default;
+        }
+        .project-name {
+            font-size: 2rem;
+            padding: .5rem 0 1rem 1rem;
+        }
+        .grid .row {
+            margin-bottom: 0;
         }
     </style>
 
@@ -146,7 +156,49 @@
     </div>
 
     <div>
-        @RenderBody()
+        @if ( ProjectContext != null )
+        {
+            <div class="grid">
+                <div class="row cells1">
+                    <div class="cell project-name">
+                        <a asp-controller="Account" asp-action="Profile">@ProjectContext.Creator.UserName</a>
+                        /
+                        <a asp-controller="Project" asp-action="Home">@ProjectContext.Name</a>
+                    </div>
+                </div>
+                <div class="row cells5">
+                    <div class="cell">
+                        <ul class="sidebar2">
+                            <li>
+                                <a asp-controller="project" asp-action="home">
+                                    <span class="icon mif-home"></span>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="issue" asp-action="index">
+                                    <span class="icon mif-question"></span>
+                                    Issues
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="pullrequest" asp-action="index">
+                                    <span class="icon mif-flow-branch"></span>
+                                    Pull Requests
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cell colspan4">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
     </div>
 </body>
 </html>
