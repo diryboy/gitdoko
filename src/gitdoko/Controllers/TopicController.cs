@@ -76,9 +76,11 @@ namespace gitdoko.Controllers
             return RedirectToDetails(topic);
         }
 
-        [VerifyTopicAccessible, Route(TopicNumberRoute)]
+        [VerifyTopicAccessible(IncludeCreator = true), Route(TopicNumberRoute)]
         public virtual async Task<IActionResult> Details( Topic topic )
-            => View(topic);
+        {
+            return View(topic);
+        }
 
         [HttpGet]
         [VerifyTopicAccessible(TopicOperation.Update), Route(TopicNumberRoute + "/[action]")]

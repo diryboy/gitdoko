@@ -25,6 +25,8 @@ namespace gitdoko.Filters
 
         public bool IsReusable => false;
 
+        public bool IncludeCreator { get; set; }
+
         public VerifyTopicAccessibleAttribute( TopicOperation operation = TopicOperation.Read )
         {
             Operation = operation;
@@ -35,7 +37,7 @@ namespace gitdoko.Filters
             var db = serviceProvider.GetService(typeof(AppDbContext)) as AppDbContext;
             if ( db != null )
             {
-                return new VerifyTopicAccessibleFilter(db, Operation);
+                return new VerifyTopicAccessibleFilter(db, Operation, IncludeCreator);
             }
             else
             {
@@ -47,11 +49,13 @@ namespace gitdoko.Filters
         {
             private readonly AppDbContext AppDb;
             private readonly TopicOperation Operation;
+            private readonly bool IncludeCreator;
 
-            public VerifyTopicAccessibleFilter( AppDbContext db, TopicOperation operation )
+            public VerifyTopicAccessibleFilter( AppDbContext db, TopicOperation operation, bool includeCreator )
             {
                 AppDb = db;
                 Operation = operation;
+                IncludeCreator = includeCreator;
             }
 
             public Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next )
@@ -79,7 +83,12 @@ namespace gitdoko.Filters
                     return;
                 }
 
-                var topic = await AppDb.Topics.FirstOrDefaultAsync(t => t.Project == project && t.TopicNumber == topicNumber);
+                IQueryable<Topic> topics = AppDb.Topics;
+                if ( IncludeCreator )
+                {
+                    topics = topics.Include(t => t.Creator);
+                }
+                var topic = await topics.FirstOrDefaultAsync(t => t.Project == project && t.TopicNumber == topicNumber);
                 if ( topic == null )
                 {
                     context.Result = new NotFoundResult();
