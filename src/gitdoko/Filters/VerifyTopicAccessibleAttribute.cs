@@ -66,29 +66,35 @@ namespace gitdoko.Filters
                 }
                 else
                 {
-                    return VerifyTopicExistsAsync(context, next, (Project)oProject, (int)oTopicNumber);
+                    return VerifyTopicExistsAsync(context, next, (Project)oProject, (string)oTopicNumber);
                 }
             }
 
-            private async Task VerifyTopicExistsAsync( ActionExecutingContext context, ActionExecutionDelegate next, Project project, int topicNumber )
+            private async Task VerifyTopicExistsAsync( ActionExecutingContext context, ActionExecutionDelegate next, Project project, string strTopicNumber )
             {
-                var topic = await AppDb.Topics.FirstOrDefaultAsync(t => t.Project == project && t.TopicNumber == topicNumber);
-                if ( topic != null )
-                {
-                    //TODO: check operation
-
-                    var topicParamName = context.ActionDescriptor.Parameters.FirstOrDefault(p => p.ParameterType == typeof(Topic))?.Name;
-                    if ( topicParamName != null )
-                    {
-                        context.ActionArguments[topicParamName] = topic;
-                    }
-
-                    await next();
-                }
-                else
+                int topicNumber;
+                if ( !Int32.TryParse(strTopicNumber, out topicNumber) )
                 {
                     context.Result = new NotFoundResult();
+                    return;
                 }
+
+                var topic = await AppDb.Topics.FirstOrDefaultAsync(t => t.Project == project && t.TopicNumber == topicNumber);
+                if ( topic == null )
+                {
+                    context.Result = new NotFoundResult();
+                    return;
+                }
+
+                //TODO: check operation
+
+                var topicParamName = context.ActionDescriptor.Parameters.FirstOrDefault(p => p.ParameterType == typeof(Topic))?.Name;
+                if ( topicParamName != null )
+                {
+                    context.ActionArguments[topicParamName] = topic;
+                }
+
+                await next();
             }
         }
     }

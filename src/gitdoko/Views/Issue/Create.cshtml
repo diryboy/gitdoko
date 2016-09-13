@@ -1,1 +1,23 @@
 ﻿@model TopicEditViewModel
+@{
+    ViewBag.Title = "Create Issue";
+}
+
+<h2>Create Issue</h2>
+
+<form asp-antiforgery="true" method="post" class="create-issue-form padding10">
+    <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
+    <label asp-for="Summary"></label>
+    <div class="input-control text full-size">
+        <input asp-for="Summary" />
+        <span class="input-state-error mif-warning"></span>
+        <span class="input-state-success mif-checkmark"></span>
+    </div>
+    <label asp-for="Content"></label>
+    <div class="input-control textarea full-size">
+        <textarea asp-for="Content"></textarea>
+    </div>
+    <div class="form-actions align-center">
+        <input type="submit" value="Submit" class="button primary" />
+    </div>
+</form>

@@ -8,6 +8,7 @@ using gitdoko.ViewModels;
 using gitdoko.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace gitdoko.Controllers
 {
@@ -21,10 +22,12 @@ namespace gitdoko.Controllers
         protected const string TopicNumberRoute = VerifyTopicAccessibleAttribute.TopicNumberRouteTemplate;
 
         protected readonly AppDbContext AppDb;
+        protected readonly UserManager<User> UserManager;
 
-        public TopicController( AppDbContext db )
+        public TopicController( AppDbContext db, UserManager<User> um )
         {
             AppDb = db;
+            UserManager = um;
         }
 
         [FromRoute]
@@ -59,11 +62,15 @@ namespace gitdoko.Controllers
         [Authorize]
         [HttpPost]
         [Route("[action]")]
-        public virtual async Task<IActionResult> Create( TCreateViewModel viewModel )
+        public virtual async Task<IActionResult> Create( Project project, TCreateViewModel viewModel )
         {
             TModel topic = CreateTopicFromViewModel(viewModel);
 
+            topic.Project = project;
+            topic.Creator = await UserManager.GetUserAsync(User);
+            topic.TopicNumber = project.NextTopicId;
             AppDb.Topics.Add(topic);
+            project.NextTopicId++;
             await AppDb.SaveChangesAsync();
 
             return RedirectToDetails(topic);

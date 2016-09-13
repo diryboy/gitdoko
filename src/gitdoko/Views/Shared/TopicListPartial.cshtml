@@ -1,3 +1,8 @@
 ﻿@model IEnumerable<Topic>
 
-Topic List!!
+<ul>
+    @foreach ( var topic in Model )
+    {
+        <li><a asp-action="Details" asp-route-topicNumber="@topic.TopicNumber">@topic.Summary</a></li>
+    }
+</ul>

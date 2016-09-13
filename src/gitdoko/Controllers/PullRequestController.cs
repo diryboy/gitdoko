@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using gitdoko.Models;
 using gitdoko.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gitdoko.Controllers
 {
     public class PullRequestController : TopicController<PullRequest, PullRequestCreateViewModel, TopicEditViewModel>
     {
-        public PullRequestController( AppDbContext db ) : base(db)
+        public PullRequestController( AppDbContext db, UserManager<User> um ) : base(db, um)
         {
         }
 
