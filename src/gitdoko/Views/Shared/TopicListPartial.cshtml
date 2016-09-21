@@ -1,8 +1,20 @@
 ﻿@model IEnumerable<Topic>
 
-<ul>
+<div class="listview-outlook">
     @foreach ( var topic in Model )
     {
-        <li><a asp-action="Details" asp-route-topicNumber="@topic.TopicNumber">@topic.Summary</a></li>
+        <div class="list">
+            <div class="list-content">
+                <span class="list-title">
+                    <a asp-action="Details" asp-route-topicNumber="@topic.TopicNumber">@topic.Summary</a>
+                </span>
+                <span class="list-subtitle">
+                    #@topic.TopicNumber by <a asp-controller="Profile" asp-action="Index" ></a> @topic.Creator
+                </span>
+                <span class="list-remark">
+                    Created on @topic.CreatedOn.ToLocalTime()
+                </span>
+            </div>
+        </div>
     }
-</ul>
+</div>

@@ -10,7 +10,7 @@
     <ul>
         @foreach ( var project in Model )
         {
-            <li><a asp-action="Home" asp-route-projectName="@project.Name">@project.Name</a></li>
+            <li><a asp-controller="Project" asp-action="Home" asp-route-projectName="@project.Name">@project.Name</a></li>
         }
     </ul>
 

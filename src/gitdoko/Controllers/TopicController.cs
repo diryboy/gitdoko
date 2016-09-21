@@ -36,20 +36,6 @@ namespace gitdoko.Controllers
         [FromRoute]
         public string ProjectName { get; set; }
 
-        [VerifyUserExists, Route("/" + UserNameRoute + "/[controller]s")]
-        public virtual async Task<IActionResult> Authored( User author, int page )
-            => View("List", await AppDb.Topics.Where(t => t.Creator == author && t.GetType() == typeof(TModel)).ToListAsync());
-
-        [VerifyUserExists, Route("/" + UserNameRoute + "/[action]/[controller]s")]
-        public virtual async Task<IActionResult> Involved( User involvedUser, int page )
-        {
-            throw new NotImplementedException();
-            return View("List", await AppDb.Topics.Where(
-                t => t.Creator == involvedUser
-                && t.Discussions.Any(d => d.Creator == involvedUser)
-                && t.GetType() == typeof(TModel)).ToListAsync());
-        }
-
         [Route("/" + ProjectIdRoute + "/[controller]s")]
         public virtual async Task<IActionResult> Index( TopicSearchLimits limits )
             => View(await AppDb.Topics.Where(t => t.GetType() == typeof(TModel)).ToListAsync());

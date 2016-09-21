@@ -58,12 +58,12 @@
                     </a>
                 </li>
                 <li>
-                    <a asp-controller="Project" asp-action="Authored" asp-route-userName="@currentUserName" class="dropdown-toggle">
+                    <a asp-controller="Profile" asp-action="Projects" asp-route-userName="@currentUserName" class="dropdown-toggle">
                         <span class="mif-lab"></span> Projects
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="Project" asp-action="Authored" asp-route-userName="@currentUserName">
+                            <a asp-controller="Profile" asp-action="Projects" asp-route-userName="@currentUserName">
                                 My Projects
                             </a>
                         </li>
@@ -75,34 +75,34 @@
                     </ul>
                 </li>
                 <li>
-                    <a asp-controller="Issue" asp-action="Authored" asp-route-userName="@currentUserName" class="dropdown-toggle">
+                    <a asp-controller="Profile" asp-action="Issues" asp-route-userName="@currentUserName" class="dropdown-toggle">
                         <span class="mif-question"></span> Issues
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="Issue" asp-action="Authored" asp-route-userName="@currentUserName">
+                            <a asp-controller="Profile" asp-action="Issues" asp-route-userName="@currentUserName">
                                 My Issues
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Issue" asp-action="Involved" asp-route-userName="@currentUserName">
+                            <a asp-controller="Profile" asp-action="InvolvedIssues" asp-route-userName="@currentUserName">
                                 <span class="mif-users"></span> Involved Issues
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a asp-controller="PullRequest" asp-action="Authored" asp-route-userName="@currentUserName" class="dropdown-toggle">
+                    <a asp-controller="Profile" asp-action="PullRequests" asp-route-userName="@currentUserName" class="dropdown-toggle">
                         <span class="mif-flow-branch"></span> Pull Requests
                     </a>
                     <ul class="d-menu" data-role="dropdown">
                         <li>
-                            <a asp-controller="PullRequest" asp-action="Authored" asp-route-userName="@currentUserName">
+                            <a asp-controller="Profile" asp-action="PullRequests" asp-route-userName="@currentUserName">
                                 My Pull Requests
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="PullRequest" asp-action="Involved" asp-route-userName="@currentUserName">
+                            <a asp-controller="Profile" asp-action="InvolvedPullRequests" asp-route-userName="@currentUserName">
                                 <span class="mif-users"></span> Involved Pull Requests
                             </a>
                         </li>

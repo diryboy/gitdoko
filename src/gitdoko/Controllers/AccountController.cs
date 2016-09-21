@@ -27,13 +27,6 @@ namespace gitdoko.Controllers
             SignInManager = sm;
         }
 
-        [VerifyUserExists]
-        [Route("/" + VerifyUserExistsAttribute.UserNameRouteTemplate)]
-        public IActionResult Profile( User user )
-        {
-            return View(user);
-        }
-
         [Authorize]
         public IActionResult Settings()
         {
@@ -83,7 +76,7 @@ namespace gitdoko.Controllers
                 }
                 else if ( String.IsNullOrWhiteSpace(returnUrl) )
                 {
-                    return RedirectToAction(nameof(Profile), new { userName = form.UserName });
+                    return RedirectToAction(nameof(ProfileController.Index), "Profile", new { userName = form.UserName });
                 }
                 else if ( !Url.IsLocalUrl(returnUrl) )
                 {
