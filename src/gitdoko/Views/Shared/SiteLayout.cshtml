@@ -118,7 +118,7 @@
                         </a>
                         <ul class="d-menu place-right" data-role="dropdown">
                             <li>
-                                <a asp-controller="Account" asp-action="Profile" asp-route-userName="@currentUserName">
+                                <a asp-controller="Profile" asp-action="Index" asp-route-userName="@currentUserName">
                                     <span class="mif-contacts-mail"></span> View My Profile
                                 </a>
                             </li>
@@ -161,7 +161,7 @@
             <div class="grid">
                 <div class="row cells1">
                     <div class="cell project-name">
-                        <a asp-controller="Account" asp-action="Profile">@ProjectContext.Creator.UserName</a>
+                        <a asp-controller="Profile" asp-action="Index">@ProjectContext.Creator.UserName</a>
                         /
                         <a asp-controller="Project" asp-action="Home">@ProjectContext.Name</a>
                     </div>

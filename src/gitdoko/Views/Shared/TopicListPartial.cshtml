@@ -9,7 +9,7 @@
                     <a asp-action="Details" asp-route-topicNumber="@topic.TopicNumber">@topic.Summary</a>
                 </span>
                 <span class="list-subtitle">
-                    #@topic.TopicNumber by <a asp-controller="Profile" asp-action="Index" ></a> @topic.Creator
+                    #@topic.TopicNumber by <a asp-controller="Profile" asp-action="Index" asp-route-userName="@topic.Creator">@topic.Creator</a>
                 </span>
                 <span class="list-remark">
                     Created on @topic.CreatedOn.ToLocalTime()
