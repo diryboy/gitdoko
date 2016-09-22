@@ -1,0 +1,14 @@
+﻿@model IList<Label>
+@{
+    ViewBag.Title = $"Labels of {ViewBag.Project.Creator.UserName}/{ViewBag.Project.Name}";
+}
+
+<div>
+    <a class="button info">Create Label</a>
+</div>
+<ul>
+    @foreach ( var label in Model )
+    {
+        <li>@label.Name</li>
+    }
+</ul>

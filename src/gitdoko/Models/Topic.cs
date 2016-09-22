@@ -19,6 +19,7 @@ namespace gitdoko.Models
         public string Summary { get; set; }
         public string Content { get; set; }
 
+        public ICollection<LabelRef> Labels { get; set; }
         public ICollection<Discussion> Discussions { get; set; }
     }
 }

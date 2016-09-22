@@ -5,7 +5,7 @@
 
 <h2>Create Issue</h2>
 
-<form asp-antiforgery="true" method="post" class="create-issue-form padding10">
+<form asp-antiforgery="true" asp-action="Add" method="post" class="create-issue-form padding10">
     <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
     <label asp-for="Summary"></label>
     <div class="input-control text full-size">

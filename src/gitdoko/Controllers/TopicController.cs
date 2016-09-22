@@ -48,7 +48,7 @@ namespace gitdoko.Controllers
         [Authorize]
         [HttpPost]
         [Route("[action]")]
-        public virtual async Task<IActionResult> Create( Project project, TCreateViewModel viewModel )
+        public virtual async Task<IActionResult> Add( Project project, TCreateViewModel viewModel )
         {
             TModel topic = CreateTopicFromViewModel(viewModel);
 
@@ -70,7 +70,7 @@ namespace gitdoko.Controllers
 
         [HttpGet]
         [VerifyTopicAccessible(TopicOperation.Update), Route(TopicNumberRoute + "/[action]")]
-        public virtual async Task<IActionResult> Update( Topic topic )
+        public virtual async Task<IActionResult> Edit( Topic topic )
             => View(CreateEditViewModelFromTopic(topic));
 
         [HttpPost]
@@ -96,7 +96,7 @@ namespace gitdoko.Controllers
 
         [HttpPost]
         [VerifyTopicAccessible(TopicOperation.Delete), Route(TopicNumberRoute + "/[action]")]
-        public virtual async Task<IActionResult> Delete( Topic topic )
+        public virtual async Task<IActionResult> Remove( Topic topic )
         {
             AppDb.Topics.Remove(topic);
             await AppDb.SaveChangesAsync();

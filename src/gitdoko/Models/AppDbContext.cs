@@ -15,12 +15,15 @@ namespace gitdoko.Models
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Discussion> Discussions { get; set; }
         public DbSet<CIResult> CIResults { get; set; }
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<LabelRef> LabelRefs { get; set; }
 
         protected override void OnModelCreating( ModelBuilder builder )
         {
             base.OnModelCreating(builder);
 
             builder.Entity<Issue>().HasBaseType<Topic>();
+            builder.Entity<PullRequest>().HasBaseType<Topic>();
         }
     }
 }

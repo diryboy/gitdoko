@@ -17,10 +17,10 @@ namespace gitdoko.Models
         public string Description { get; set; }
         public string UserRights { get; set; }
         public string DefaultBranch { get; set; }
-        //public ICollection<string> Branches { get; set; }
         public int NextTopicId { get; set; }
 
         public ICollection<Topic> Topics { get; set; }
+        public ICollection<Label> Labels { get; set; }
         public ICollection<CIResult> CIResults { get; set; }
     }
 }
