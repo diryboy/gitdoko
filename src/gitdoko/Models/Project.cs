@@ -7,11 +7,11 @@ namespace gitdoko.Models
 {
     public class Project : IUserContent
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public User Creator { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime LastEditedOn { get; set; }
-        public string LastEditedBy { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime LastEditedOn { get; set; } = DateTime.MinValue;
+        public User LastEditedBy { get; set; }
         public string Name { get; set; }
         public string Summary { get; set; }
         public string Description { get; set; }

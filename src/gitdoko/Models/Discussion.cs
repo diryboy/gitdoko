@@ -7,14 +7,14 @@ namespace gitdoko.Models
 {
     public class Discussion : IUserContent
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public Topic Topic { get; set; }
         public User Creator { get; set; }
         public string CommitId { get; set; }
         public string Diff { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime LastEditedOn { get; set; }
-        public string LastEditedBy { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime LastEditedOn { get; set; } = DateTime.MinValue;
+        public User LastEditedBy { get; set; }
         public string Summary { get; set; }
         public string Content { get; set; }
     }

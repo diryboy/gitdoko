@@ -79,6 +79,8 @@ namespace gitdoko.Controllers
         {
             var model = (TModel)topic;
             UpdateTopicFromViewModel(model, viewModel);
+            model.LastEditedBy = await UserManager.GetUserAsync(User);
+            model.LastEditedOn = DateTime.UtcNow;
             await AppDb.SaveChangesAsync();
 
             return RedirectToDetails(topic);

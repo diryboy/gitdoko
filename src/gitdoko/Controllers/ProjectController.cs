@@ -40,7 +40,7 @@ namespace gitdoko.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create( CreateProjectViewModel form )
+        public async Task<IActionResult> Add( CreateProjectViewModel form )
         {
             if ( ModelState.IsValid )
             {

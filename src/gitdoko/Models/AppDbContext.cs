@@ -22,6 +22,12 @@ namespace gitdoko.Models
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<User>(user =>
+            {
+                user.HasMany<Project>().WithOne(p => p.Creator);
+                user.HasMany<Topic>().WithOne(p => p.Creator);
+                user.HasMany<Discussion>().WithOne(p => p.Creator);
+            });
             builder.Entity<Issue>().HasBaseType<Topic>();
             builder.Entity<PullRequest>().HasBaseType<Topic>();
         }

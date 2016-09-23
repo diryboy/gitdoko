@@ -7,7 +7,7 @@ namespace gitdoko.Models
 {
     public class LabelRef
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public Topic Topic { get; set; }
         public Label Label { get; set; }
     }

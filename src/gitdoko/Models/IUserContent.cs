@@ -10,7 +10,7 @@ namespace gitdoko.Models
         User Creator { get; set; }
         DateTime CreatedOn { get; set; }
         DateTime LastEditedOn { get; set; }
-        string LastEditedBy { get; set; }
+        User LastEditedBy { get; set; }
         string Summary { get; set; }
     }
 }
