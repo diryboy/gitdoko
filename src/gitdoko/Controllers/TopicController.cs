@@ -37,8 +37,14 @@ namespace gitdoko.Controllers
         public string ProjectName { get; set; }
 
         [Route("/" + ProjectIdRoute + "/[controller]s")]
-        public virtual async Task<IActionResult> Index( TopicSearchLimits limits )
-            => View(await AppDb.Topics.Where(t => t.GetType() == typeof(TModel)).ToListAsync());
+        public virtual async Task<IActionResult> Index( Project project, TopicSearchLimits limits )
+        {
+            var topics = from t in AppDb.Topics
+                         where t.GetType() == typeof(TModel) && t.Project == project
+                         select t;
+
+            return View(await topics.ToListAsync());
+        }
 
         [HttpGet]
         [Route("[action]")]
