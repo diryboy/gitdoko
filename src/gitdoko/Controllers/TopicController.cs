@@ -118,7 +118,6 @@ namespace gitdoko.Controllers
 
         protected abstract void UpdateTopicFromViewModel( TModel topic, TEditViewModel viewModel );
 
-
         protected IActionResult RedirectToDetails( Topic topic )
         {
             return RedirectToAction(nameof(Details), new { topicNumber = topic.TopicNumber });

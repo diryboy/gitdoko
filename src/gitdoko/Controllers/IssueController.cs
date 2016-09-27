@@ -16,23 +16,24 @@ namespace gitdoko.Controllers
         }
 
         protected override Issue CreateTopicFromViewModel( TopicEditViewModel viewModel )
-        {
-            return new Issue
+            => new Issue
             {
                 Summary = viewModel.Summary,
                 Content = viewModel.Content,
                 CreatedOn = DateTime.UtcNow
             };
-        }
 
         protected override TopicEditViewModel CreateEditViewModelFromTopic( Topic topic )
-        {
-            throw new NotImplementedException();
-        }
+            => new TopicEditViewModel
+            {
+                Summary = topic.Summary,
+                Content = topic.Content
+            };
 
         protected override void UpdateTopicFromViewModel( Issue topic, TopicEditViewModel viewModel )
         {
-            throw new NotImplementedException();
+            topic.Summary = viewModel.Summary;
+            topic.Content = viewModel.Content;
         }
     }
 }
