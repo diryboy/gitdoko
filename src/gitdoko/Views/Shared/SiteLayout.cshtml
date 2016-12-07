@@ -6,205 +6,187 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro-responsive.min.css" />
-    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro-icons.min.css" />
-    <link rel="stylesheet" href="//cdn.bootcss.com/metro/3.0.14/css/metro.min.css" />
-    <style>
-        body {
-            min-width: 50rem;
-        }
-        .app-bar [class^=mif-] {
-            vertical-align: baseline;
-        }
-        .cursor-default {
-            cursor: default;
-        }
-        .project-name {
-            font-size: 2rem;
-            padding: .5rem 0 1rem 1rem;
-        }
-        .grid .row {
-            margin-bottom: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.8/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.8/css/skins/_all-skins.min.css">
 
     <script defer src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script defer src="//cdn.bootcss.com/metro/3.0.14/js/metro.min.js"></script>
     <script defer src="//cdn.bootcss.com/jquery-validate/1.15.0/jquery.validate.min.js"></script>
     <script defer src="//cdn.bootcss.com/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    <script defer src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script defer src="//cdn.bootcss.com/admin-lte/2.3.8/js/app.min.js"></script>
     <script defer src="~/site.js"></script>
 
     <title>@ViewBag.Title</title>
 </head>
-<body>
-    <div class="app-bar" data-role="appbar">
+<body class="skin-blue">
+    <div class="wrapper">
+        <header class="main-header">
+            <a class="logo" href="/">
+                <span class="logo-mini">G</span>
+                <span class="logo-lg">Gitdoko</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    @if ( User.Identity.IsAuthenticated )
+                    {
+                        @*var currentUserName = User.Identity.Name;
 
-        <a class="app-bar-element" href="/">
-            <span class="mif-home"></span> Home
-        </a>
-        <div class="app-bar-divider"></div>
-
-        @if ( User.Identity.IsAuthenticated )
-        {
-            var currentUserName = User.Identity.Name;
-
-            <ul class="app-bar-menu small-dropdown">
-                <li>
-                    <a>
-                        <span class="mif-bubbles"></span> Notifications
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Profile" asp-action="Projects" asp-route-userName="@currentUserName" class="dropdown-toggle">
-                        <span class="mif-lab"></span> Projects
-                    </a>
-                    <ul class="d-menu" data-role="dropdown">
-                        <li>
-                            <a asp-controller="Profile" asp-action="Projects" asp-route-userName="@currentUserName">
-                                My Projects
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Project" asp-action="Create">
-                                <span class="mif-plus"></span> Create New
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a asp-controller="Profile" asp-action="Issues" asp-route-userName="@currentUserName" class="dropdown-toggle">
-                        <span class="mif-question"></span> Issues
-                    </a>
-                    <ul class="d-menu" data-role="dropdown">
-                        <li>
-                            <a asp-controller="Profile" asp-action="Issues" asp-route-userName="@currentUserName">
-                                My Issues
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Profile" asp-action="InvolvedIssues" asp-route-userName="@currentUserName">
-                                <span class="mif-users"></span> Involved Issues
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a asp-controller="Profile" asp-action="PullRequests" asp-route-userName="@currentUserName" class="dropdown-toggle">
-                        <span class="mif-flow-branch"></span> Pull Requests
-                    </a>
-                    <ul class="d-menu" data-role="dropdown">
-                        <li>
-                            <a asp-controller="Profile" asp-action="PullRequests" asp-route-userName="@currentUserName">
-                                My Pull Requests
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Profile" asp-action="InvolvedPullRequests" asp-route-userName="@currentUserName">
-                                <span class="mif-users"></span> Involved Pull Requests
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="place-right">
-                <div class="app-bar-divider"></div>
-                <ul class="app-bar-menu small-dropdown">
-                    <li>
-                        <a class="dropdown-toggle">
-                            <span class="mif-user"></span> @currentUserName
-                        </a>
-                        <ul class="d-menu place-right" data-role="dropdown">
+                        <ul class="app-bar-menu small-dropdown">
                             <li>
-                                <a asp-controller="Profile" asp-action="Index" asp-route-userName="@currentUserName">
-                                    <span class="mif-contacts-mail"></span> View My Profile
+                                <a>
+                                    <span class="mif-bubbles"></span> Notifications
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="Account" asp-action="Settings">
-                                    <span class="mif-cog"></span> Settings
+                                <a asp-controller="Profile" asp-action="Projects" asp-route-userName="@currentUserName" class="dropdown-toggle">
+                                    <span class="mif-lab"></span> Projects
                                 </a>
+                                <ul class="d-menu" data-role="dropdown">
+                                    <li>
+                                        <a asp-controller="Profile" asp-action="Projects" asp-route-userName="@currentUserName">
+                                            My Projects
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Project" asp-action="Create">
+                                            <span class="mif-plus"></span> Create New
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a asp-controller="Account" asp-action="SignOut">
-                                    <span class="mif-switch"></span> Sign Out
+                                <a asp-controller="Profile" asp-action="Issues" asp-route-userName="@currentUserName" class="dropdown-toggle">
+                                    <span class="mif-question"></span> Issues
                                 </a>
+                                <ul class="d-menu" data-role="dropdown">
+                                    <li>
+                                        <a asp-controller="Profile" asp-action="Issues" asp-route-userName="@currentUserName">
+                                            My Issues
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Profile" asp-action="InvolvedIssues" asp-route-userName="@currentUserName">
+                                            <span class="mif-users"></span> Involved Issues
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a asp-controller="Profile" asp-action="PullRequests" asp-route-userName="@currentUserName" class="dropdown-toggle">
+                                    <span class="mif-flow-branch"></span> Pull Requests
+                                </a>
+                                <ul class="d-menu" data-role="dropdown">
+                                    <li>
+                                        <a asp-controller="Profile" asp-action="PullRequests" asp-route-userName="@currentUserName">
+                                            My Pull Requests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Profile" asp-action="InvolvedPullRequests" asp-route-userName="@currentUserName">
+                                            <span class="mif-users"></span> Involved Pull Requests
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
-                    </li>
-                </ul>
-            </div>
-        }
-        else if ( Context.Request.Path != "/SignIn" && Context.Request.Path != "/SignUp" )
-        {
-            <div class="place-right">
-                <div class="app-bar-divider"></div>
-                <div class="app-bar-element">
-                    <a asp-controller="Account" asp-action="SignIn" class="dropdown-toggle block fg-white">
-                        Sign In
-                        <span class="mif-enter"></span>
-                    </a>
-                    <div class="app-bar-drop-container bg-white fg-dark place-right padding20 cursor-default" data-role="dropdown" data-no-close="true">
-                        @await Html.PartialAsync("SignInPartial", new SignInViewModel())
-                    </div>
+                        <div class="place-right">
+                            <div class="app-bar-divider"></div>
+                            <ul class="app-bar-menu small-dropdown">
+                                <li>
+                                    <a class="dropdown-toggle">
+                                        <span class="mif-user"></span> @currentUserName
+                                    </a>
+                                    <ul class="d-menu place-right" data-role="dropdown">
+                                        <li>
+                                            <a asp-controller="Profile" asp-action="Index" asp-route-userName="@currentUserName">
+                                                <span class="mif-contacts-mail"></span> View My Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Account" asp-action="Settings">
+                                                <span class="mif-cog"></span> Settings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Account" asp-action="SignOut">
+                                                <span class="mif-switch"></span> Sign Out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>*@
+                    }
+                    else if ( Context.Request.Path != "/SignIn" && Context.Request.Path != "/SignUp" )
+                    {
+                        <ul class="nav navbar-nav">
+                            <li class="app-bar-divider"></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" asp-controller="Account" asp-action="SignIn">
+                                    Sign In
+                                    <i class="mif-enter"></i>
+                                </a>
+                                <div class="dropdown-menu" data-no-close="true">
+                                    @await Html.PartialAsync("SignInPartial", new SignInViewModel())
+                                </div>
+                            </li>
+                        </ul>
+                    }
                 </div>
-            </div>
-        }
-
-    </div>
-
-    <div>
+            </nav>
+        </header>
         @if ( ProjectContext != null )
         {
-            <div class="grid">
-                <div class="row cells1">
-                    <div class="cell project-name">
-                        <a asp-controller="Profile" asp-action="Index">@ProjectContext.Creator.UserName</a>
-                        /
-                        <a asp-controller="Project" asp-action="Home">@ProjectContext.Name</a>
-                    </div>
-                </div>
-                <div class="row cells5">
-                    <div class="cell">
-                        <ul class="sidebar2">
-                            <li>
-                                <a asp-controller="Project" asp-action="Home">
-                                    <span class="icon mif-home"></span>
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-controller="Issue" asp-action="Index">
-                                    <span class="icon mif-question"></span>
-                                    Issues
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-controller="PullRequest" asp-action="Index">
-                                    <span class="icon mif-flow-branch"></span>
-                                    Pull Requests
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-controller="Label" asp-action="Index">
-                                    <span class="icon mif-tags"></span>
-                                    Labels
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="cell colspan4">
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
+            <aside class="main-sidebar">
+                <section class="sidbar">
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a asp-controller="Profile" asp-action="Index">@ProjectContext.Creator.UserName</a>
+                            /
+                            <a asp-controller="Project" asp-action="Home">@ProjectContext.Name</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Project" asp-action="Home">
+                                <span class="icon mif-home"></span>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Issue" asp-action="Index">
+                                <span class="icon mif-question"></span>
+                                Issues
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="PullRequest" asp-action="Index">
+                                <span class="icon mif-flow-branch"></span>
+                                Pull Requests
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Label" asp-action="Index">
+                                <span class="icon mif-tags"></span>
+                                Labels
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
         }
-        else
-        {
+        <div class="content-wrapper">
             @RenderBody()
-        }
+        </div>
     </div>
 </body>
 </html>
