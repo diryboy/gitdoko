@@ -33,9 +33,6 @@
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </a>
                 <div class="navbar-custom-menu">
                     @if ( User.Identity.IsAuthenticated )
@@ -132,14 +129,22 @@
                     {
                         <ul class="nav navbar-nav">
                             <li class="app-bar-divider"></li>
-                            <li class="dropdown">
+                            <li class="dropdown user user-menu">
                                 <a class="dropdown-toggle" data-toggle="dropdown" asp-controller="Account" asp-action="SignIn">
                                     Sign In
-                                    <i class="mif-enter"></i>
+                                    <i class="glyphicon glyphicon-log-in"></i>
                                 </a>
-                                <div class="dropdown-menu" data-no-close="true">
-                                    @await Html.PartialAsync("SignInPartial", new SignInViewModel())
-                                </div>
+                                <ul class="dropdown-menu">
+                                    @*<li class="user-header">
+                                        Sign in yeah..
+                                    </li>*@
+                                    <li class="user-body">
+                                        @await Html.PartialAsync("SignInPartial", new SignInViewModel())
+                                    </li>
+                                    @*<li class="user-footer">
+                                        Boom
+                                    </li>*@
+                                </ul>
                             </li>
                         </ul>
                     }
@@ -185,7 +190,10 @@
             </aside>
         }
         <div class="content-wrapper">
-            @RenderBody()
+            <section class="content-header"></section>
+            <section class="content">
+                @RenderBody()
+            </section>
         </div>
     </div>
 </body>
