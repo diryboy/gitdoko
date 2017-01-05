@@ -1,0 +1,19 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "site.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "admin-lte": "^2.3.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-modify-file": "^0.1.0"
+  },
+  "scripts": {
+    "install": "gulp build_3rd_party"
+  },
+  "author": "",
+  "license": "MIT"
+}
