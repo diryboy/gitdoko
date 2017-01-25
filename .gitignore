@@ -3,8 +3,6 @@
 
 src/gitdoko/AppData/gitdoko.db
 src/gitdoko/assets/node_modules/
-src/gitdoko/assets/3rd_party/src/
-src/gitdoko/assets/3rd_party/out/
 
 # User-specific files
 *.suo
