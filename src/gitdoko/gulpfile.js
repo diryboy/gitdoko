@@ -1,4 +1,5 @@
 ﻿var gulp = require('gulp');
+const static3rdPartyAssetsDir = 'assets/3rd_party';
 
 gulp.task('build_3rd_party', () => {
     var modify = require('gulp-modify-file');
@@ -16,24 +17,24 @@ gulp.task('build_3rd_party', () => {
         var newBootstrapVars = 'bootstrap-variables.less';
         if (path.indexOf('AdminLTE') > 0) {
             content = content.replace('@import url(', '// @import url(')
-                             .replace('../bootstrap-less/variables.less', newBootstrapVars)
+                             .replace('../bootstrap-less/variables.less', newBootstrapVars);
         } else {
             content = content.replace('variables.less', newBootstrapVars);
         }
         return content;
     }))
     .pipe(less({
-        paths: [Path.join(__dirname, 'src/3rd')]
+        paths: [Path.join(__dirname, 'assets/src/3rd')]
     }))
     .pipe(rename(path => {
         path.dirname = getNodeModuleName(path.dirname) + '/css';
     }))
-    .pipe(gulp.dest('3rd_party'))
+    .pipe(gulp.dest(static3rdPartyAssetsDir))
     .pipe(cleanCss())
     .pipe(rename({
         suffix: ".min"
     }))
-    .pipe(gulp.dest('3rd_party'));
+    .pipe(gulp.dest(static3rdPartyAssetsDir));
 
     gulp.src([
         'node_modules/*/fonts/*.*'
@@ -41,17 +42,17 @@ gulp.task('build_3rd_party', () => {
     .pipe(rename(path => {
         path.dirname = getNodeModuleName(path.dirname) + '/fonts';
     }))
-    .pipe(gulp.dest('3rd_party'));
+    .pipe(gulp.dest(static3rdPartyAssetsDir));
 
     gulp.src([
         'node_modules/*/dist/*.js',
         'node_modules/*/dist/js/*.js',
-        'node_modules/jquery-validation-unobtrusive/*.js',
+        'node_modules/jquery-validation-unobtrusive/*.js'
     ])
     .pipe(rename(path => {
         path.dirname = getNodeModuleName(path.dirname) + '/js';
     }))
-    .pipe(gulp.dest('3rd_party'));
+    .pipe(gulp.dest(static3rdPartyAssetsDir));
 
     function getNodeModuleName(path) {
         return path.match(/\.|[\w\-]+/)[0];
