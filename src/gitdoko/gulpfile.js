@@ -6,7 +6,11 @@ gulp.task('build_3rd_party', () => {
     var less = require('gulp-less');
     var cleanCss = require('gulp-clean-css');
     var rename = require('gulp-rename');
+    var filter = require('gulp-filter');
     var Path = require('path');
+
+    var fs = require('fs');
+    var dependencies = JSON.parse(fs.readFileSync('package.json')).dependencies;
 
     gulp.src([
         'node_modules/*/**/bootstrap.less',
@@ -29,32 +33,44 @@ gulp.task('build_3rd_party', () => {
     .pipe(rename(path => {
         path.dirname = getNodeModuleName(path.dirname) + '/css';
     }))
-    .pipe(gulp.dest(static3rdPartyAssetsDir))
+    .pipe(toStatic3rdPartyAssetsDir())
     .pipe(cleanCss())
     .pipe(rename({
         suffix: ".min"
     }))
-    .pipe(gulp.dest(static3rdPartyAssetsDir));
+    .pipe(toStatic3rdPartyAssetsDir());
 
     gulp.src([
         'node_modules/*/fonts/*.*'
     ])
+    .pipe(filterToDependencies())
     .pipe(rename(path => {
         path.dirname = getNodeModuleName(path.dirname) + '/fonts';
     }))
-    .pipe(gulp.dest(static3rdPartyAssetsDir));
+    .pipe(toStatic3rdPartyAssetsDir());
 
     gulp.src([
         'node_modules/*/dist/*.js',
         'node_modules/*/dist/js/*.js',
         'node_modules/jquery-validation-unobtrusive/*.js'
     ])
+    .pipe(filterToDependencies())
     .pipe(rename(path => {
         path.dirname = getNodeModuleName(path.dirname) + '/js';
     }))
-    .pipe(gulp.dest(static3rdPartyAssetsDir));
+    .pipe(toStatic3rdPartyAssetsDir());
 
-    function getNodeModuleName(path) {
-        return path.match(/\.|[\w\-]+/)[0];
+    function getNodeModuleName(dirname) {
+        return dirname.match(/\.|[\w\-]+/)[0];
+    }
+
+    function filterToDependencies() {
+        return filter(file => {
+            return file.path.match(/node_modules.([\w\-]+)/i)[1] in dependencies;
+        });
+    }
+
+    function toStatic3rdPartyAssetsDir() {
+        return gulp.dest(static3rdPartyAssetsDir);
     }
 });
