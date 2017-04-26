@@ -4,31 +4,20 @@
     {
         <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
     }
-    <div class="input-control text">
-        <span class="mif-user prepend-icon"></span>
-        <input placeholder="User name" asp-for="UserName" />
-        <span class="input-state-error mif-warning"></span>
-        <span class="input-state-success mif-checkmark"></span>
+    <div class="form-group">
+        <input asp-for="UserName" placeholder="User name" class="form-control" />
     </div>
-    <div class="clear-float"></div>
-    <div class="input-control text">
-        <span class="mif-key prepend-icon"></span>
-        <input placeholder="Password" asp-for="Password" />
-        <span class="input-state-error mif-warning"></span>
-        <span class="input-state-success mif-checkmark"></span>
+    <div class="form-group">
+        <input asp-for="Password" placeholder="Password" class="form-control" />
     </div>
-    <div class="clear-float"></div>
-    <div class="input-control checkbox">
-        <label>
-            <input asp-for="RememberMe" />
-            <span class="check"></span>
-            <label asp-for="RememberMe"></label>
-        </label>
+    <div class="form-group">
+        <input asp-for="RememberMe" />
+        <label asp-for="RememberMe" style="font-weight: normal"></label>
     </div>
-    <div class="form-actions align-center">
-        <input type="submit" value="Sign In" class="button primary" />
+    <div class="form-group">
+        <input type="submit" value="Sign In" class="btn btn-primary" />
     </div>
-    <div class="text-secondary" style="line-height: 50px">
+    <div class="form-group">
         Not an existing user?
         <a asp-controller="Account" asp-action="SignUp">Sign Up</a>!
     </div>
