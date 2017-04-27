@@ -27,14 +27,13 @@ namespace gitdoko.Filters
 
             public Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next )
             {
-                var routeValues = context.RouteData.Values;
-                if ( !routeValues.ContainsKey(Key_UserName) )
+                if ( context.RouteData.Values.ContainsKey(Key_UserName) )
                 {
-                    return next();
+                    return VerifyUserExistsAsync(context, next);
                 }
                 else
                 {
-                    return VerifyUserExistsAsync(context, next);
+                    return next();
                 }
             }
 

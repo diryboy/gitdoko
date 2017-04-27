@@ -34,8 +34,7 @@ namespace gitdoko.Filters
 
         public IFilterMetadata CreateInstance( IServiceProvider serviceProvider )
         {
-            var db = serviceProvider.GetService(typeof(AppDbContext)) as AppDbContext;
-            if ( db != null )
+            if ( serviceProvider.GetService(typeof(AppDbContext)) is AppDbContext db )
             {
                 return new VerifyTopicAccessibleFilter(db, Operation, IncludeCreator);
             }
@@ -60,24 +59,20 @@ namespace gitdoko.Filters
 
             public Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next )
             {
-                var items = context.HttpContext.Items;
-                object oProject = null;
-                object oTopicNumber = null;
-                if ( !items.TryGetValue(VerifyProjectAccessibleAttribute.HttpContextItemKey_VerifiedProject, out oProject)
-                  || !context.RouteData.Values.TryGetValue(Key_TopicNumber, out oTopicNumber) )
+                if ( context.HttpContext.Items.TryGetValue(VerifyProjectAccessibleAttribute.HttpContextItemKey_VerifiedProject, out var oProject)
+                    && context.RouteData.Values.TryGetValue(Key_TopicNumber, out var oTopicNumber) )
                 {
-                    return next();
+                    return VerifyTopicExistsAsync(context, next, (Project)oProject, (string)oTopicNumber);
                 }
                 else
                 {
-                    return VerifyTopicExistsAsync(context, next, (Project)oProject, (string)oTopicNumber);
+                    return next();
                 }
             }
 
             private async Task VerifyTopicExistsAsync( ActionExecutingContext context, ActionExecutionDelegate next, Project project, string strTopicNumber )
             {
-                int topicNumber;
-                if ( !Int32.TryParse(strTopicNumber, out topicNumber) )
+                if ( !Int32.TryParse(strTopicNumber, out var topicNumber) )
                 {
                     context.Result = new NotFoundResult();
                     return;

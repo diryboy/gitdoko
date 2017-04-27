@@ -30,13 +30,13 @@ namespace gitdoko.Filters
             public Task OnActionExecutionAsync( ActionExecutingContext context, ActionExecutionDelegate next )
             {
                 var routeValues = context.RouteData.Values;
-                if ( !routeValues.ContainsKey(Key_ProjectOwner) || !routeValues.ContainsKey(Key_ProjectName) )
+                if ( routeValues.ContainsKey(Key_ProjectOwner) && routeValues.ContainsKey(Key_ProjectName) )
                 {
-                    return next();
+                    return VerifyProjectAccessibleAsync(context, next);
                 }
                 else
                 {
-                    return VerifyProjectAccessibleAsync(context, next);
+                    return next();
                 }
             }
 
@@ -63,8 +63,7 @@ namespace gitdoko.Filters
                         context.ActionArguments[projectParamName] = targetProject;
                     }
 
-                    var controller = context.Controller as Controller;
-                    if ( controller != null )
+                    if ( context.Controller is Controller controller )
                     {
                         controller.ViewBag.Project = targetProject;
                     }
