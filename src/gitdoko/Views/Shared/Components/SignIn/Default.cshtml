@@ -1,6 +1,6 @@
 ﻿@model SignInViewModel
 <form method="post" asp-antiforgery="true" asp-controller="Account" asp-action="SignIn">
-    @if ( ViewBag.ShowValidationSummary == true )
+    @if ( Model.ShowValidationSummary == true )
     {
         <div asp-validation-summary="All" class="simple-list red-bullet fg-red"></div>
     }

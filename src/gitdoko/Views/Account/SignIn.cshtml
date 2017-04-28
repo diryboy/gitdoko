@@ -2,9 +2,8 @@
 @{
     Layout = "SingleWindowLayout";
     ViewBag.Title = "Sign In";
-    ViewBag.ShowValidationSummary = true;
 }
 
 <div class="align-center">
-    @await Html.PartialAsync("SignInPartial")
+    <vc:sign-in show-validation-summary="true" />
 </div>

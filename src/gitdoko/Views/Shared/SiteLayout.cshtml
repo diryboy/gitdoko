@@ -139,7 +139,7 @@
                                         Sign in yeah..
                                     </li>*@
                                     <li class="user-body text-center">
-                                        @await Html.PartialAsync("SignInPartial", new SignInViewModel())
+                                        <vc:sign-in show-validation-summary="false" />
                                     </li>
                                     @*<li class="user-footer">
                                         Boom

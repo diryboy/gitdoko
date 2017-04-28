@@ -5,6 +5,8 @@ namespace gitdoko.ViewModels
 {
     public class SignInViewModel
     {
+        public bool ShowValidationSummary { get; set; }
+
         [Required]
         public string UserName { get; set; }
 
