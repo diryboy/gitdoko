@@ -7,7 +7,7 @@ using gitdoko.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -48,11 +48,12 @@ namespace gitdoko
 
             var idServices = services.AddIdentity<User, IdentityRole>(id =>
             {
-                id.Cookies.ApplicationCookie.LoginPath = "/SignIn";
                 id.User.RequireUniqueEmail = false;
             });
 
             idServices.AddEntityFrameworkStores<AppDbContext>();
+
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/SignIn");
 
             services.AddMvc();
         }
@@ -66,7 +67,7 @@ namespace gitdoko
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseIdentity();
+            app.UseAuthentication();
 
             app.UseFileServer()
                .UseMvc()
